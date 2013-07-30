@@ -57,6 +57,7 @@ if ( ! defined('CF_SYSTEM')) exit('No External script access allowed');
 
         public static function initialize($form_name)
         {
+            \Cygnite\Cygnite::loader()->logger->write(__CLASS__.' Initialized',__FILE__,'debug');
             self::$formname = $form_name;
             ob_start();
             if(!isset(self::$object_holder[$form_name])):

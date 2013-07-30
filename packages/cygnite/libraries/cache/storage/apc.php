@@ -1,4 +1,9 @@
-<?php if ( ! defined('CF_SYSTEM')) exit('External script access not allowed');
+<?php
+namespace Cygnite\Libraries\Cache\Storage;
+
+use Cygnite\Helpers\Config as Config;
+
+if ( ! defined('CF_SYSTEM')) exit('External script access not allowed');
 /**
  *  Cygnite Framework
  *
@@ -48,10 +53,12 @@
                 */
                 public function __construct()
                 {
-                      if(extension_loaded('apc'))
+                      if(extension_loaded('apc')):
                             $this->is_enable = TRUE;
-                      else
+                            \Cygnite\Cygnite::loader()->logger->write(__CLASS__.' Initialized',__FILE__,'debug');
+                      else:
                             throw new Exception("Apc extension not loaded properly !") ;
+                      endif;
                 }
                 /*
                 * Prevent cloning

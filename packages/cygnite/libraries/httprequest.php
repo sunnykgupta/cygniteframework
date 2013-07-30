@@ -40,7 +40,10 @@ class HttpRequest
             private $_cookie; // the returned COOKIE values
 
 
-            function __construct() { }
+           public function __construct()
+           {
+               \Cygnite\Cygnite::loader()->logger->write(__CLASS__.' Initialized',__FILE__,'debug');
+           }
 
 
             /**

@@ -1,4 +1,9 @@
-<?php if ( ! defined('CF_SYSTEM')) exit('External script access not allowed');
+<?php
+namespace Cygnite\Libraries\Cache\Storage;
+
+use Cygnite\Helpers\Config as Config;
+
+if ( ! defined('CF_SYSTEM')) exit('External script access not allowed');
 
 /**
  *  Cygnite Framework
@@ -46,6 +51,7 @@
             {
                     if (!class_exists('Memcache'))
                         throw new Exception("Memcache extension not available !");
+                    \Cygnite\Cygnite::loader()->logger->write(__CLASS__.' Initialized',__FILE__,'debug');
             }
              /**
             * Connect memcache based on its host and port. Connect with default port if hostname and port number not passed
@@ -63,7 +69,7 @@
                             $this->host = $host; $this->port = $port;  endif;
                             if (class_exists('Memcache')):
                                     if($this->memobj == NULL):
-                                         $this->memobj = new Memcache();
+                                         $this->memobj = new \Memcache();
 
                                       $this->is_enabled = TRUE;
                                               if (! $this->memobj->connect($this->host,$this->port)): // Instead 'localhost' here can be IP

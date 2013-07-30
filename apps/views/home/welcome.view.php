@@ -75,9 +75,9 @@ use Cygnite\Helpers\Assets as Assets;
                           <li class="span3">
                               <div class="feature-block">
                                     <div class="features-head">
-                                                                             <h3 class="title"><a href="">Zero  <span class="title-em">Configuration</span></a></h3>
+                                                                             <h3 class="title"><a href="">Dynamic  <span class="title-em">Routing</span></a></h3>
                                 </div>
-                                  <p> Its very easy to use, almost zero configuration. Create and use your own libraries based upon your needs.</p>
+                                  <p> Cygnite framework has powerful routing features which allow you to have various routing patterns.</p>
                               </div>
                     </li>
 

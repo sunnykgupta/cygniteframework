@@ -34,23 +34,25 @@ if ( ! defined('CF_SYSTEM')) exit('No External script access allowed');
  */
        $logconfig = Config::getconfig('error_config','log_errors');
               if($logconfig == 'on' )
-                  \Cygnite\Cygnite::import('packages.cygnite.base.logger');// Load the Logger Library
+                     \Cygnite\Cygnite::import('packages.cygnite.base.logger');// Load the Logger Library
 
 
     class Errorhandler
     {
-
            private $debug = FALSE;
+
            private $ob_level;
+
             /*
              *  Constructor function             *
              */
            public  function __construct()
            {
+                    \Cygnite\Cygnite::loader()->logger->write(__CLASS__.' Initialized',__FILE__,'debug');
                     $this->ob_level = ob_get_level();
                    set_error_handler(array($this, 'handleExceptions'));//Use our custom handler
             }
-            
+
             public   function handleExceptions($err_type, $err_header = "Error Encountered",$err_message, $err_file = NULL, $line = NULL,$debug = NULL)
            {
                     $this->debug = $debug;
@@ -76,7 +78,8 @@ if ( ! defined('CF_SYSTEM')) exit('No External script access allowed');
 
             private function _error($title,$line,$err_message,$err_file,$debug = "",$type = NULL)
             {
-                        ob_start();
+                //  $callee = debug_backtrace();
+                       ob_start();
                         $arr =  array(
                                       'title' => $title,
                                       'line' =>$line,
@@ -104,13 +107,13 @@ if ( ! defined('CF_SYSTEM')) exit('No External script access allowed');
                                 case 'development':
                                             error_reporting(-1);
                                         /*    error_reporting($err_config['level']);
-                                          ini_set('display_errors',$err_config['display_errors']);
+                                          ini_set('showErrors',$err_config['showErrors']);
                                           ini_set('log_errors', $err_config['log_errors']);
                                          ini_set('error_log', ROOTDIR.DS.str_replace("/", "", APPPATH).DS.'tmp'.DS.'logs'.DS.'error.log'); */
                                 break;
                                 case 'production':
                                             error_reporting($err_config['level']);
-                                            ini_set('display_errors',$err_config['display_errors']);
+                                            ini_set('showErrors',$err_config['showErrors']);
                                             ini_set('log_errors', $err_config['log_errors']);
                                             ini_set('error_log', ROOTDIR.DS.APPPATH.DS.'tmp'.DS.'logs'.DS.'error.log');
                                 break;

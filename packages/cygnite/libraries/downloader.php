@@ -38,7 +38,10 @@ class Downloader
     private $mime_type = NULL;
     private $file_path = NULL;
 
-    public function __construct() { }
+    public function __construct()
+    {
+           \Cygnite\Cygnite::loader()->logger->write(__CLASS__.' Initialized',__FILE__,'debug');
+    }
 
     /*
     |---------------------------
@@ -270,7 +273,7 @@ class Downloader
 
            $file_size = filesize($this->file_path);
             if($file_size === false)
-                    GHelper::display_errors(E_USER_WARNING, "Path Exception", "Invalid path exception", __FILE__,__LINE__);
+                    GHelper::showErrors(E_USER_WARNING, "Path Exception", "Invalid path exception", __FILE__,__LINE__);
             $mime_type = $this->get_mime_type();
 
             ob_start();

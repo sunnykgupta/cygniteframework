@@ -1,5 +1,8 @@
 <?php
 namespace Cygnite\Base;
+
+use Cygnite\Helpers\Config as Config;
+use Cygnite\Helpers\GHelper as GHelper;
 /**
  *  Cygnite Framework
  *
@@ -24,11 +27,9 @@ namespace Cygnite\Base;
  * @Since	                  :  Version 1.0
  * @Filesource
  * @Warning                     :  Any changes in this library can cause abnormal behaviour of the framework
- *
+ * @example usage        : AppLogger::write_error_log('Logger Initialized By Sanjay',__FILE__);
  *
  */
-
-//AppLogger::write_error_log('Logger Initialized By Sanjay',__FILE__);
 
 class Logger
 {
@@ -36,7 +37,7 @@ class Logger
       protected static $file_name = NULL;
       protected static $fp = NULL;
       protected static $log_path;
-      protected static $log_size;
+      protected static $filesize;
       protected static $log_ext = ".log";
       protected static $config = array();
       public static $log_errors = '';
@@ -45,15 +46,16 @@ class Logger
 
       private static function get_log_config()
       {
+                $logpath = "";
                 if(empty(self::$config))
-                     self::$config =  Config::getconfig('error_config');
+                     $logpath =  Config::getconfig('global_config','logpath');
 
-                if(self::$config['log_path'] !="" || self::$config['log_path'] !==NULL)
-                        self::$log_path  = APPPATH.self::$config['log_path'].'/';
+                if($logpath !="" || $logpath !==NULL)
+                         self::$log_path  = APPPATH.DS.str_replace('.',DS,$logpath).DS;
                 else
-                        self::$log_path  = APPPATH.'temp/logs/';
-               // var_dump(self::$config['ERROR_CONFIG']['log_file_name']);
-                self::$file_name  = (self::$config['log_file_name'] !="") ? self::$config['log_file_name']  : 'cf_error_logs';
+                        self::$log_path  = APPPATH.DS.'temp'.DS.'logs'.DS;
+
+                self::$file_name  = (Config::getconfig('global_config','log_file_name') !="") ? Config::getconfig('global_config','log_file_name')  : 'cf_error_logs';
       }
 
       public static function read()
@@ -61,59 +63,66 @@ class Logger
            // var_dump( self::$config);
       }
 
-      private static function open($log_file_path)
+      private static function open($filepath)
       {
-              self::$fp = fopen($log_file_path, 'a') or exit("Can't open log file ".self::$file_name.self::$log_ext."!");
+              self::$fp = fopen($filepath, 'a') OR exit("Can't open log file ".self::$file_name.self::$log_ext."!");
       }
 
-      public static function write_error_log($log_msg= "",$files_name,$log_level = "log_debug", $log_size = 1)
+      public  function write($msg= "",$filename,$level = "log_debug", $filesize = 1)
       {
+                $log= $traceType = "";
                  self::get_log_config();
 
-                 $log_file_path = self::$log_path.self::$file_name.'_'.date('Y-m-d').''.self::$log_ext; //exit;
-                self::$log_size = $log_size *(1024*1024); // Megs to bytes
+                 $filepath = self::$log_path.self::$file_name.'-'.date('Y-m-d').''.self::$log_ext;
+                self::$filesize = $filesize *(1024*1024); // Megs to bytes
+                $log = Config::getconfig('global_config','log_errors');
+                $traceType = Config::getconfig('global_config','log_trace_type');
 
-                if(self::$config['log_trace_type'] == 2):
-                        self::_write($log_msg= "",$files_name,$log_level = "log_debug", $log_size = 1);
-                        return TRUE;
-                 else:
-                       throw new Exception("Log config not set properly in config file. Set log_errors = on and log_trace_type = 2 ");
+                if($log =='on' && $traceType !==1):
+                    return;
+                endif;
+                if($log =='on'):
+                        if($traceType === 1):
+                                return self::_write($msg, $filepath,$filename,$level, $filesize = 1);
+                         else:
+                               throw new \Exception("Log config not set properly in config file. Set log_errors = on and log_trace_type = 2 ");
+                        endif;
                 endif;
 
           }
 
-          private function _write($log_msg= "",$files_name,$log_level = "log_debug", $log_size = 1)
+         static private function _write($msg,$filepath,$filename,$level = "debug", $filesize = 1)
           {
                if (!is_resource(self::$fp))
-                        self::open($log_file_path);
+                        self::open($filepath);
 
-             /*   if (file_exists($log_file_path)):
-                        if (filesize($log_file_path) > self::$log_size):
-                                self::$fp = fopen($log_file_path, 'w') or die("can't open file file!");
+                /* if (file_exists($filepath)):
+                        if (filesize($filepath) > self::$filesize):
+                                self::$fp = fopen($filepath, 'w') or die("can't open file file!");
                                 fclose(self::$fp);
-                                unlink($log_file_path);
+                                unlink($filepath);
                        endif;
-              endif; */
+                   endif; */
 
-                switch ($log_level):
-                            case 'log_debug':
-                                        $log_level = "LOG DEBUG :";
+                switch ($level):
+                            case 'debug':
+                                        $level = "LOG DEBUG :";
                                 break;
-                           case 'log_info':
-                                        $log_level = "LOG INFO : ";
+                           case 'info':
+                                        $level = "LOG INFO : ";
                                 break;
-                          case 'log_warning':
-                                        $log_level = "LOG WARNING : ";
+                          case 'warning':
+                                        $level = "LOG WARNING : ";
                                 break;
                   endswitch;
-                 $log_msg = $log_level."  [".date('Y-m-d H:i:s')."] -> [File:  $files_name ] ->  $log_msg".PHP_EOL;// write current time, file name and log msg to the log file
+                 $msg = $level."  [".date('Y-m-d H:i:s')."] -> [File:  $filename ] ->  $msg".PHP_EOL;// write current time, file name and log msg to the log file
 
                 flock(self::$fp, LOCK_EX);
-                fwrite(self::$fp, $log_msg);
+                fwrite(self::$fp, $msg);
                 flock(self::$fp, LOCK_UN);
                 fclose(self::$fp);
 
-                @chmod($log_file_path,FILE_WRITE_MODE);
+                @chmod($filepath,FILE_WRITE_MODE);
                 return TRUE;
           }
 }

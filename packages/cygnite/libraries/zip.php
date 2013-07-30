@@ -39,7 +39,7 @@ if ( ! defined('CF_SYSTEM')) exit('External script access not allowed');
         {
                  if(!extension_loaded('zip'))
                        throw new Exception("Zip extension not loaded !");
-
+                 \Cygnite\Cygnite::loader()->logger->write(__CLASS__.' Initialized',__FILE__,'debug');
                   $this->zip = new ZipArchive();
 
         }

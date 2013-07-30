@@ -8,7 +8,7 @@ if ( ! defined('CF_SYSTEM')) exit('External script access not allowed');
 /**
  *  Cygnite Framework
  *
- *  An open source application development framework for PHP 5.2x or newer
+ *  An open source application development framework for PHP 5.3x or newer
  *
  *   License
  *

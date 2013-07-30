@@ -63,5 +63,4 @@ class Get extends Globals implements ISecureData
 
                     return implode("&", $get_result);
             }
-
 }

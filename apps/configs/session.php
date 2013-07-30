@@ -1,7 +1,7 @@
 <?php if ( ! defined('CF_SYSTEM')) exit('External script access not allowed');
 /**
  *  Cygnite Framework
- *  Database Configuration Settings
+ *  Session Configuration Settings
  *
  *  An open source application development framework for PHP 5.3x or newer
  *
@@ -20,8 +20,8 @@
  *@description                    : You can set your session configurations here.
  *@author                           : Sanjoy Dey
  *@copyright                      :  Copyright (c) 2013 - 2014,
- *@link	                  :  http://www.appsntech.com
- *@since	                 :  Version 1.2
+ *@link	                             :  http://www.appsntech.com
+ *@since	                            :  Version 1.2
  *@filesource
  *@warning                      :  If you don't protect this directory from direct web access, anybody will be able to see your database configuaration and settings.
  *
@@ -35,7 +35,7 @@ return array(
                         * Session Config
                         *--------------------------------------------------------------------------
                         * You can auto enable/disable cygnite session mechanisam by
-                        * setting cf_session as TRUE/FALSE.
+                        * setting cf_session as TRUE/FALSE for auto start.
                         * Cygnite will take care of rest.
                         */
                         'cf_session'                             => FALSE , //Set TRUE or FALSE to start session default is FALSE
@@ -51,13 +51,13 @@ return array(
 
                         /*
                         *--------------------------------------------------------------------------
-                        * Session Name
+                        * Session path
                         *--------------------------------------------------------------------------
                         * You can set your application default session storage path here. By default
                         * All your session details will be store on apps/temp/sessions/ directory.
                         * Keep save path as default.
                         */
-                        'cf_session_save_path'         => 'default', // Framework default Session path is apps/temp/sessions/
+                        'cf_session_save_path'         => 'default', 
 
 
                         /*

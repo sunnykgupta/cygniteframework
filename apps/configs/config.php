@@ -53,10 +53,8 @@ return array (
                         * Your Application Default Method
                         *--------------------------------------------------------------------------
                         * You can set your application default method here. By default we
-                        * we will call index method of your controller.
-                        *
-                        * @note : You cannot change the default method in current version. We will
-                        * have a provision to change the default method in next version of cygnite.
+                        * we will call index method of your controller. Cygnite Framework provides
+                        * you flexibility to change the default method.
                         *
                         */
                          'default_method'          => 'index',
@@ -144,7 +142,7 @@ return array (
                         *---------------------------------------------------------------------------
                         * Cache Type
                         *---------------------------------------------------------------------------
-                        * Set your cache type here. Cygnite will take care of rest.
+                        * Set your default cache type here. Cygnite will take care of rest.
                         *
                         */
                         'cache_type'                  => 'filecache',
@@ -157,7 +155,7 @@ return array (
                         * temp/cache.
                         *
                         */
-                        'cache_directory'              => 'temp/cache', //Default value is none
+                        'cache_directory'              => 'temp.cache', //Default value is none
 
                         /*
                         *---------------------------------------------------------------------------
@@ -177,13 +175,13 @@ return array (
                         * Cygnite Application Logs
                         *---------------------------------------------------------------------------
                         * Though cygnite log generator library available we need to integrate
-                        * with core files in order to make it. It will be available in next version
-                        * of cygnite.
+                        * with core files in order to make work globally.
                         */
                         'log_errors'                   => 'on',
 
-                        //You can set value  1- Display error, 2 - Generate and write into log file
-                        'log_trace_type'         => 2,  // Will be available on next version.
+
+                        //You can set value  0- to off, 1 - Generate and write into log file
+                        'log_trace_type'         => 0,
                       /*
                         *---------------------------------------------------------------------------
                         * Logs File Name
@@ -192,7 +190,7 @@ return array (
                         * by cygnite engine and store as filename you provide here.
                         *
                         */
-                        'log_file_name'          => 'application_logs' ,
+                        'log_file_name'          => 'cygnite' ,
                         /*
                         *---------------------------------------------------------------------------
                         * Logs Storage Location
@@ -201,6 +199,6 @@ return array (
                         * temp/logs.
                         *
                         */
-                        'log_path'                    => 'temp/logs'
+                        'logpath'                    => 'temp.logs'
 
 );

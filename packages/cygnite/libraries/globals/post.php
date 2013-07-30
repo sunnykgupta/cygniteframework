@@ -61,10 +61,8 @@ class Post extends Globals implements ISecureData
              public function values($key = NULL, $default = NULL)
             {
                 if (NULL === $key)
-                      return $this->clean_variables($_POST);
+                       return $this->clean_variables($_POST);
                 else
-                    return (isset($_POST[$key])) ? $this->clean_variables($_POST[$key]) : $default;
-            }
-
-
+                      return (isset($_POST[$key])) ? $this->clean_variables($_POST[$key]) : $default;
+            } 
 }

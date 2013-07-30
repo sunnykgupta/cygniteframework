@@ -91,7 +91,7 @@ class Apploader extends Appregistry implements IRegistry
                         else:
                             $callee = debug_backtrace();
                             GHelper::trace();
-                            GHelper::display_errors(E_USER_ERROR, 'Error Occurred ','Unable to load requested model  '.$model_name.EXT, $callee[0]['file'],$callee[0]['line'],TRUE );
+                            GHelper::showErrors(E_USER_ERROR, 'Error Occurred ','Unable to load requested model  '.$model_name.EXT, $callee[0]['file'],$callee[0]['line'],TRUE );
                         endif;
             }
 
@@ -118,7 +118,7 @@ class Apploader extends Appregistry implements IRegistry
                 else:
                     $callee = debug_backtrace();
                     GHelper::trace();
-                    GHelper::display_errors(E_USER_ERROR, 'Error Occurred',"Unable to load requested helper ".$file_name, $callee[0]['file'],$callee[0]['line'],TRUE );
+                    GHelper::showErrors(E_USER_ERROR, 'Error Occurred',"Unable to load requested helper ".$file_name, $callee[0]['file'],$callee[0]['line'],TRUE );
                     endif;
                 unset($file_name);
         }

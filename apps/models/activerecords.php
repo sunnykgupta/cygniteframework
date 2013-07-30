@@ -21,7 +21,7 @@ class Activerecords extends CF_BaseModel
     }
 
     public function getdetails()
-    { 
+    {
         $where = array(
                     'Name =' => 'Sanjay',
                     'id >'=> '4'

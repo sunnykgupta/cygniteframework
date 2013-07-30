@@ -77,6 +77,7 @@ class Upload
          */
         public function __construct()
         {
+                  \Cygnite\Cygnite::loader()->logger->write(__CLASS__.' Initialized',__FILE__,'debug');
                   $this->file_requirements["size"] = ini_get("upload_max_filesize");
        }
 

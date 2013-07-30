@@ -1,5 +1,6 @@
 <?php
 namespace Cygnite\Helpers;
+
 if ( ! defined('CF_SYSTEM')) exit('External script access not allowed');
 /**
  *  Cygnite Framework
@@ -57,7 +58,7 @@ class Url
         */
         public function referedfrom()
         {
-
+                return $_SERVER["HTTP_REFERER"];
         }
 
        /**
@@ -69,7 +70,17 @@ class Url
         */
         public static function segment($uri=1)
         {
-                return \Cygnite\Base\Dispatcher::getSegment($uri);
+            $uriarray = array();
+            $uriarray = explode('/',($_SERVER['REQUEST_URI']));
+            unset($uriarray[0]);
+
+                 $index_count = array_search('index.php',$uriarray);
+                if($index_count !== FALSE):
+                         return $uriarray[$index_count+$uri];
+                else:
+                     $rootindex = array_search(ROOTDIR, $uriarray);
+                     return $uriarray[$rootindex+$uri];
+                endif;
         }
 
             /**
@@ -97,7 +108,12 @@ class Url
                  return  self::$url;
            }
 
-          /**
+           static public function isSecure()
+           {
+                return (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off' || $_SERVER['SERVER_PORT'] == 443) ? TRUE : FALSE;
+           }
+
+           /**
             * This Function is to get the url sitepath with index.php
             *
             * @access public

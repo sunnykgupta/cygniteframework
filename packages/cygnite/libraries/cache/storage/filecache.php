@@ -1,4 +1,10 @@
-<?php if ( ! defined('CF_SYSTEM')) exit('External script access not allowed');
+<?php
+namespace Cygnite\Libraries\Cache\Storage;
+
+use Cygnite\Helpers\Config as Config;
+use Cygnite\Helpers\GHelper as GHelper;
+
+if ( ! defined('CF_SYSTEM')) exit('External script access not allowed');
 /**
  *  Cygnite Framework
  *
@@ -63,7 +69,8 @@
                         if( Config::getconfig('global_config','cache_directory') == "none"):
                                 throw new Exception('You must provide cache directory to  use cache mechanism ',E_COMPILE_ERROR ,NULL);
                         else:
-                                 $this->_cachepath = APPPATH.Config::getconfig('global_config','cache_directory').'/';
+                                 $this->_cachepath = APPPATH.DS.str_replace('.',DS, Config::getconfig('global_config','cache_directory')).DS;
+                                 \Cygnite\Cygnite::loader()->logger->write(__CLASS__.' Initialized',__FILE__,'debug');
                         endif;
                 }
 
@@ -149,9 +156,8 @@
               private function get_cache_directory()
               {
                       if ($this->has_cache_dir() === TRUE) :
-                              $file_name = $this->get_cache_name();
-                              $filename = preg_replace('/[^0-9a-z\.\_\-]/i', '', strtolower($file_name));
-                         return $this->get_path() . md5($filename) . $this->get_cache_extension();
+                              $filename = preg_replace('/[^0-9a-z\.\_\-]/i', '', strtolower($this->get_cache_name()));
+                                   return $this->get_path() . md5($filename) . $this->get_cache_extension();
                     endif;
               }
 
@@ -159,10 +165,10 @@
               function has_cache_dir()
               {
                     if (!is_dir($this->get_path()) && !mkdir($this->get_path(), 0775, TRUE)):
-                               GHelper::display_errors(E_USER_NOTICE, 'Cache Path Error ','Unable to create cache directory ' . $this->get_path(), __FILE__, __LINE__);
+                               GHelper::showErrors(E_USER_NOTICE, 'Cache Path Error ','Unable to create cache directory ' . $this->get_path(), __FILE__, __LINE__);
                     elseif (!is_readable($this->get_path()) || !is_writable($this->get_path())):
                             if (!chmod($this->get_path(), 0775))
-                               GHelper::display_errors(E_USER_NOTICE, 'Cache Path Error ',$this->get_path() . ' directory must be writeable', __FILE__, __LINE__);
+                               GHelper::showErrors(E_USER_NOTICE, 'Cache Path Error ',$this->get_path() . ' directory must be writeable', __FILE__, __LINE__);
                     endif;
                     return true;
               }

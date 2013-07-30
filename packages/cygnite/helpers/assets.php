@@ -1,7 +1,7 @@
 <?php
 namespace Cygnite\Helpers;
 
-//use Cygnite\Helpers\Url as Url;
+use Cygnite\Helpers\Url as Url;
 
 if ( ! defined('CF_SYSTEM')) exit('External script access not allowed');
 /**
@@ -31,7 +31,7 @@ if ( ! defined('CF_SYSTEM')) exit('External script access not allowed');
  *
  *
  */
-
+    \Cygnite\Cygnite::loader()->logger->write('Assets class Initialized',__FILE__,'debug');
     class Assets
     {
           /**

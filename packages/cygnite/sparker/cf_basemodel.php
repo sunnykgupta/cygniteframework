@@ -40,6 +40,7 @@ class CF_BaseModel //implements CF_IActiveRecords
 
         public function __construct($dbkey)
         {
+            \Cygnite\Cygnite::loader()->logger->write(__CLASS__.' Initialized',__FILE__,'debug');
             $this->db = new CFActiveRecords(is_string($dbkey) ? $dbkey : NULL);
             $this->connect = $dbkey;
         }

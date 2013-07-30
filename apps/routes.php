@@ -1,4 +1,5 @@
 <?php
+namespace Cygnite;
 if ( ! defined('CF_SYSTEM')) exit('No External script access allowed');
 /**
  *  Cygnite Framework
@@ -28,16 +29,16 @@ if ( ! defined('CF_SYSTEM')) exit('No External script access allowed');
  *                                           core code for routing feature, have to add more filter validation.
  *
  */
-
-    $router = new Cygnite\Base\Router();
+    $router = NULL;
+    $router = Cygnite::loader()->router;
+    $GLOBALS['router'] = $router;
 
     // Before Router Middleware
     $router->before('GET', '/.*', function() {
-            //echo "The Framework is under development";
+          //  echo "Cygnite Framework is under development";exit;
     });
 
     // Dynamic route: /hello/name
-    // Testing goes here
     $router->get('/hello/(\w+)', function($name) {
             echo 'Hello ' . htmlentities($name);
             $defaultController = ucfirst(APPPATH).'\\Controllers\\'.ucfirst('home');
@@ -52,8 +53,8 @@ if ( ! defined('CF_SYSTEM')) exit('No External script access allowed');
     });
 
     // Custom 404 Handler
-    $router->set404(function() {
+  /*  $router->set404(function() {
             header('HTTP/1.1 404 Not Found');
-            //echo "404 Page found!";exit;
-    });
+            echo ' Oopps !! 404 Page';
+    }); */
     $router->run();

@@ -73,6 +73,7 @@ class Mailer extends \Cygnite\Libraries\Phpmailer\PHPMailer
 {
     public function __construct()
     {
+          \Cygnite\Cygnite::loader()->logger->write(__CLASS__.' Initialized',__FILE__,'debug');
           parent::__construct();
     }
 

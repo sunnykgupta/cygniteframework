@@ -1,5 +1,5 @@
 <?php
-namespace Cygnite\Libraries;
+namespace Cygnite\Libraries\Globals;
 
 use Cygnite\Helpers\Config as Config;
 use Cygnite\Helpers\GHelper as GHelper;
@@ -32,7 +32,7 @@ use Cygnite\Helpers\GHelper as GHelper;
  *
  */
 
-class Session extends \Globals implements ISecureData
+class Session extends Globals implements ISecureData
 {
         public $_var = "_SESSION";
 
@@ -48,8 +48,9 @@ class Session extends \Globals implements ISecureData
 
         public function __construct()
        {
-            echo "here";exit;
+
                     $this->config =  Config::get_config_items('config_items');
+                    \Cygnite\Cygnite::loader()->logger->write(__CLASS__.' Initialized',__FILE__,'debug');
 
                     $keys = array('HTTP_USER_AGENT', 'SERVER_PROTOCOL',
                                               'HTTP_ACCEPT_CHARSET', 'HTTP_ACCEPT_ENCODING', 'HTTP_ACCEPT_LANGUAGE');
@@ -304,7 +305,7 @@ class Session extends \Globals implements ISecureData
                                                          $_SESSION[$key]= \Cygnite\Cygnite::loader()->encrypt->encode($value);
                                                           return TRUE;
                                                     else:
-                                                         GHelper::display_errors(E_USER_ERROR, 'Session Key', 'Empty key passed to '.__FUNCTION__.'()', $callee[0]['file'],$callee[0]['line'] , TRUE);
+                                                         GHelper::showErrors(E_USER_ERROR, 'Session Key', 'Empty key passed to '.__FUNCTION__.'()', $callee[0]['file'],$callee[0]['line'] , TRUE);
                                                     endif;
                                             break;
                                    endswitch;
@@ -325,7 +326,7 @@ class Session extends \Globals implements ISecureData
                                                     return isset($_SESSION[$key]) ? $_SESSION[$key] : $defaultValue;
                                             break;
                                         case is_string($_SESSION[$key]):
-                                                        return  isset($_SESSION[$key]) ? Cygnite::loader()->request('Encrypt')->decode($_SESSION[$key]) : $defaultValue;
+                                                        return  isset($_SESSION[$key]) ? \Cygnite\Cygnite::loader()->encrypt->decode($_SESSION[$key]) : $defaultValue;
                                             break;
                                    endswitch;
                     }

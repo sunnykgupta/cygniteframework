@@ -22,8 +22,8 @@
                             echo 'NOTICE :  '.strtoupper($title);
                         endif; ?> </h2>
 
-                        <p >LINE NUMBER : <?php echo $line; ?> </p>
-                        <p> EXCEPTION MESSAGE : <?php echo $message; ?></p>
+            <p >LINE NUMBER : <?php echo ($line)?$line:''; ?> </p>
+                        <p> EXCEPTION MESSAGE : <?php echo ($message)? $message :''; ?></p>
                         <p> FILE PATH : <?php echo $file; ?></p>
        </div>
     </body>

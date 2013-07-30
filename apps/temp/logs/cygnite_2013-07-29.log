@@ -1,0 +1,8 @@
+LOG DEBUG :  [2013-07-29 20:54:43] -> [File:  Apps\Controllers\Home method Apps\Controllers\Home::action_index ] ->  Logger Initialized By Sanjay
+LOG DEBUG :  [2013-07-29 20:54:53] -> [File:  Apps\Controllers\Home method Apps\Controllers\Home::action_index ] ->  Logger Initialized By Sanjay
+LOG DEBUG :  [2013-07-29 20:55:15] -> [File:   method  ] ->  Logger Initialized By Sanjay
+LOG DEBUG :  [2013-07-29 20:55:15] -> [File:  Apps\Controllers\Home method Apps\Controllers\Home::action_index ] ->  Logger Initialized By Sanjay
+LOG DEBUG :  [2013-07-29 20:55:45] -> [File:   method  ] ->  Logger Initialized By Sanjay
+LOG DEBUG :  [2013-07-29 20:55:45] -> [File:  Apps\Controllers\Home method Apps\Controllers\Home::action_index ] ->  Logger Initialized By Sanjay
+LOG DEBUG :  [2013-07-29 20:56:20] -> [File:  G:\wamp\www\cygniteframework\packages\cygnite\strapper.php ] ->  Logger Initialized By Sanjay
+LOG DEBUG :  [2013-07-29 20:56:20] -> [File:  Apps\Controllers\Home method Apps\Controllers\Home::action_index ] ->  Logger Initialized By Sanjay

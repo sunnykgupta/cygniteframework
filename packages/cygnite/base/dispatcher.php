@@ -19,20 +19,21 @@ class Dispatcher
    */
     static private  $router_enabled = FALSE;
 
-    private $default,$routes = array();
+    private $default = array();
 
+    private $routes=NULL;
 
-
-    function __construct($route)
+    public function __construct($route)
     {
         $this->router = $route;
         $this->default['controller'] = lcfirst(Config::getconfig('global_config','default_controller'));
         $this->default['action'] = lcfirst(Config::getconfig('global_config','default_method'));
+        \Cygnite\Cygnite::loader()->logger->write(__CLASS__.' Initialized',__FILE__,'debug');
         $this->handle();
 
     }
 
-     function  matches( $routes , $quitAfterRun = false)
+    private function  matches( $routes , $quitAfterRun = false)
      {
            $uri = $this->router->current_uri();
            // Counter to keep track of the number of routes we've handled
@@ -67,24 +68,26 @@ class Dispatcher
     public function handle()
     {
         if($this->router->current_uri() =='/' ||  $this->router->current_uri() == '/'.self::$index_page):
-            if($this->default['controller'] !=''){
-                    include APPPATH.DS.'controllers'.DS.$this->default['controller'].EXT;
-                   $defaultController = ucfirst(APPPATH).'\\Controllers\\'.ucfirst($this->default['controller']);
-                    $defaultAction = 'action_'.$this->default['action'];
-            }
-            // Static route: / (Default Home Page)
-            $this->router->get('/',call_user_func_array(array(new $defaultController,$defaultAction),$param_arr = array()));
+                    if($this->default['controller'] !=''):
+                            include APPPATH.DS.'controllers'.DS.$this->default['controller'].EXT;
+                           $defaultController = ucfirst(APPPATH).'\\Controllers\\'.ucfirst($this->default['controller']);
+                            $defaultAction = 'action_'.$this->default['action'];
+                    endif;
+                        $callee = debug_backtrace();
+                     if( FALSE!== class_exists($defaultController)):
+                            // Static route: / (Default Home Page)
+                            $this->router->get('/',call_user_func_array(array(new $defaultController,$defaultAction),$param_arr = array()));
+                    else:
+                          GHelper::trace();
+                          GHelper::showErrors(E_USER_ERROR, '404 Page',
+                          "Controller $exp[1] not found ! ",$callee[0]['file'],$callee[0]['line'],TRUE);
+                   endif;
         else:
                    $routeConfig = Config::getconfig('routing_config');
                    $newurl = str_replace('/index.php','', rtrim($this->router->current_uri()));
 
                    $exp= array_filter(explode('/',$newurl));
                    $matched_url = $this->matches($routeConfig);
-                    // Custom 404 Handler
-               /*     \Cygnite\Cygnite::loader()->router->set404(function() {
-                            header('HTTP/1.1 404 Not Found');
-                            echo '404, route not found!';
-                    }); */
 
                             if(!is_null($matched_url)) :
                                     $requesturi = preg_split('/[\.\ ]/', $matched_url['controlpath']);
@@ -100,16 +103,16 @@ class Dispatcher
                                                     include APPPATH.DS.'controllers'.DS.strtolower($exp[1]).EXT;
                                               else:
                                                       GHelper::trace();
-                                                      GHelper::display_errors(E_USER_ERROR, 'Unhandled Exception (404 Page)',
-                                                      "Controller $exp[1] not found ! ",$callee[1]['file'],$callee[1]['line'],TRUE);
+                                                      GHelper::showErrors(E_USER_ERROR, 'Unhandled Exception (404 Page)',
+                                                      "Controller $exp[1] not found ! ",$callee[0]['file'],$callee[0]['line'],TRUE);
                                               endif;
 
                                               $action = 'action_'.strtolower((is_null($exp[2])) ? $this->default['action'] : $exp[2]);
                                               $instance =new $controller();
                                              if(!method_exists($instance, $action)):
                                                       GHelper::trace();
-                                                      GHelper::display_errors(E_USER_ERROR, 'Unhandled Exception',
-                                                      "Requested action $exp[2] not found ! ",$callee[1]['file'],$callee[1]['line'],TRUE);
+                                                      GHelper::showErrors(E_USER_ERROR, 'Unhandled Exception',
+                                                      "Requested action $exp[2] not found ! ",$callee[0]['file'],$callee[0]['line'],TRUE);
                                             endif;
 
                                            $params = array_slice($exp,2);
@@ -117,17 +120,10 @@ class Dispatcher
                          endif;
         endif;
     }
-
-    public function getSegment($uri)
-    {
-
-            return $uri;
-    }
-
+    
    public  function __destruct()
     {
         $this->router->run();
-        
     }
 
 }//End of the class

@@ -23,6 +23,8 @@ abstract class DBConnector
     /** Variable $err_msg, always empty if not have errors. */
     public $err_msg = "";
 
+    
+
     public function connect()
     {
         $db_config = array();
@@ -38,7 +40,7 @@ abstract class DBConnector
                      $this->password = $value['password'];
                      $this->port = $value['port'];
                      if(!is_null($value['username']) && !is_null($value['dbname'] && !is_null($value['hostname'])))
-                       return $this->driverConnect($this->db_type,$this->database);
+                             $this->driverConnect($this->db_type,$this->database);
                      else
                          throw new \Exception("Database configuration error.");
 

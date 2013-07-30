@@ -54,13 +54,16 @@
     *  Define root directory name
     * -------------------------------------------------------------------
     */
+
      $dir =explode(DS,dirname(__FILE__));
      defined('ROOTDIR') OR define('ROOTDIR', rtrim(end($dir)));
 
      defined('CYGNITE_BASE') OR define('CYGNITE_BASE', dirname(__FILE__));
-
+    
   /* -------------------------------------------------------------------
     *  Lets start to include default core files
+   *
+   *  Cygnite Loading............
     * -------------------------------------------------------------------
     */
     require_once CF_SYSTEM.DS.'boot'.EXT;

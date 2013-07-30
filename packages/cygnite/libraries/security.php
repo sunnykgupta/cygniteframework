@@ -51,7 +51,10 @@ class Security
 
 	public $register_global = array(); // Array to object instances
 
-	public function __construct(){}
+	public function __construct()
+                            {
+                                \Cygnite\Cygnite::loader()->logger->write(__CLASS__.' Initialized',__FILE__,'debug');
+                            }
 
 	/**
 	 *  __get() Magic method gets class name as a parameter and determines wheather instance exists

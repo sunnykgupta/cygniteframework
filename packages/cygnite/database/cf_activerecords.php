@@ -31,6 +31,7 @@ class CF_ActiveRecords extends DBConnector //implements CF_IActiveRecords
 
     public function __construct($connkey)
     {
+        \Cygnite\Cygnite::loader()->logger->write(__CLASS__.' Initialized',__FILE__,'debug');
         $this->connect();
         $this->connection = $connkey;
         $this->pdo[$this->connection] = $this->getInstance($this->connection);
@@ -108,7 +109,7 @@ class CF_ActiveRecords extends DBConnector //implements CF_IActiveRecords
                             else:
                                     ($selecttype === "*") ?
                                             trigger_error('You are not allowed to use * for selecting all columns. Please use all instead of *', E_USER_ERROR)
-                                           //GlobalHelper::display_errors(E_USER_ERROR, 'Database Error Occured', 'You are not allowed to use * for selecting columns. Please use "all" keyword instead of *.', __FILE__,$callee[0]['line'] ,TRUE)
+                                           //GlobalHelper::showErrors(E_USER_ERROR, 'Database Error Occured', 'You are not allowed to use * for selecting columns. Please use "all" keyword instead of *.', __FILE__,$callee[0]['line'] ,TRUE)
                                     :  $this->selectfields = $selecttype; // Need to split the column name and add quotes
                            endif;
                 endif;
@@ -290,7 +291,7 @@ class CF_ActiveRecords extends DBConnector //implements CF_IActiveRecords
          } catch( \PDOException  $exception){
                    $this->_err = $exception;
                    GHelper::trace();
-                  GHelper::display_errors(E_USER_ERROR, 'Database Error Occured', $this->_err->getMessage(), __FILE__, $this->_err->getLine(),$this->debugqry);
+                  GHelper::showErrors(E_USER_ERROR, 'Database Error Occured', $this->_err->getMessage(), __FILE__, $this->_err->getLine(),$this->debugqry);
          }
         //$_dbstatement->debugDumpParams();
 
@@ -328,7 +329,7 @@ class CF_ActiveRecords extends DBConnector //implements CF_IActiveRecords
 
     public function num_row_count()
     {
-         return Cygnite::loader()->request('SQLUtilities')->num_row_count();
+         return Cygnite::loader()->sqlutilities->num_row_count();
     }
 
     private function _processquery($tblname,$groupby,$orderby,$limit)
@@ -448,20 +449,20 @@ class CF_ActiveRecords extends DBConnector //implements CF_IActiveRecords
 
            try{
                 $this->dbstatement = $this->pdo[$this->connection]->prepare($this->sqlqry);
-                Cygnite::loader()->request('SQLUtilities')->setdbstmt($this->dbstatement,$this->pdo[$this->connection]);
+                Cygnite::loader()->sqlutilities->setdbstmt($this->dbstatement,$this->pdo[$this->connection]);
                 $this->dbstatement->bindValue(':where',$whrarr[$whr[0]]);
                 return $this->dbstatement->execute();
            } catch(CF_DBException  $exception){
                 $this->_err = $exception;
                  GHelper::trace();
-                GHelper::display_errors(E_USER_ERROR, 'Database Error Occured', $this->_err->getMessage(), __FILE__, $this->_err->getLine(),TRUE);
+                GHelper::showErrors(E_USER_ERROR, 'Database Error Occured', $this->_err->getMessage(), __FILE__, $this->_err->getLine(),TRUE);
            }
 
    }
 
     public function debug_query()
     {
-         return Cygnite::loader()->request('SQLUtilities')->debugqry($this->debugqry,$this->_dbstatement);
+         return Cygnite::loader()->sqlutilities->debugqry($this->debugqry,$this->_dbstatement);
     }
 
     public function dblogerror() { }

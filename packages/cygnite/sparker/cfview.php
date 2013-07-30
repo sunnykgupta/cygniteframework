@@ -44,7 +44,7 @@ if ( ! defined('CF_SYSTEM')) exit('External script access not allowed');
 
               public function __construct()
               {
-
+                     \Cygnite\Cygnite::loader()->logger->write(__CLASS__.' Initialized',__FILE__,'debug');
                     $expires = 60*60*24*14;
                     header("Pragma: public");
                     header("Cache-Control: maxage=".$expires);
@@ -88,14 +88,13 @@ if ( ! defined('CF_SYSTEM')) exit('External script access not allowed');
           public  function render($view,$ui_content =NULL)
           {
                             $trace = debug_backtrace();
-                            echo "<br>";
-                           // $controller = strtolower(str_replace('AppsController','',$trace[1]['class']));
+                             // $controller = strtolower(str_replace('AppsController','',$trace[1]['class']));
                             $controller = str_replace(strtolower(APPPATH).'\\controllers\\', '', strtolower($trace[1]['class']));
                             $path= APPPATH.DS.'views'.DS.$controller.DS;
 
                             if(!file_exists($path.$view.'.view'.EXT) || !is_readable($path.$view.'.view'.EXT)):
                                  GHelper::trace();
-                                GHelper::display_errors(E_USER_ERROR, 'Error rendering view page ',"Can not find view page on ".$path.$view.'.view'.EXT, $trace[0]['file'],$trace[0]['line'],TRUE );
+                                GHelper::showErrors(E_USER_ERROR, 'Error rendering view page ',"Can not find view page on ".$path.$view.'.view'.EXT, $trace[0]['file'],$trace[0]['line'],TRUE );
                             endif;
 
                             self::$name[strtolower($view)] = $view;

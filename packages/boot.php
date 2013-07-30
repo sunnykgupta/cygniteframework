@@ -1,11 +1,11 @@
 <?php
-    error_reporting(-1);
+    error_reporting(E_ALL);
     /*
     * ------------------------------------------------------
     *  Define the Cygnite Framework  Version
     * ------------------------------------------------------
     */
-    defined('CF_VERSION') OR define('CF_VERSION', ' <span class="version">(alpha 1.0.2)</span>');
+    defined('CF_VERSION') OR define('CF_VERSION', ' <span class="version">(alpha 1.1)</span>');
 
     /*----------------------------------------------------
     * Define Framework Extension
@@ -33,5 +33,3 @@
  require_once CF_SYSTEM.DS.'cygnite'.DS.'helpers'.DS.'ghelper'.EXT;
 require CF_SYSTEM.DS.'cygnite'.DS.'robotloader'.EXT;
 require CF_SYSTEM.DS.'cygnite'.DS.'cygnite'.EXT;
-//require_once CF_SYSTEM.DS.'cygnite'.DS.'helpers'.DS.'url'.EXT;
-//require_once CF_SYSTEM.DS.'cygnite'.DS.'helpers'.DS.'config'.EXT;

@@ -1,10 +1,11 @@
 <?php
 namespace Cygnite;
+
 if ( ! defined('CF_SYSTEM')) exit('External script access not allowed');
 /**
  *  Cygnite Framework
  *
- *  An open source application development framework for PHP 5.2x or newer
+ *  An open source application development framework for PHP 5.3x or newer
  *
  *   License
  *
@@ -18,7 +19,7 @@ if ( ! defined('CF_SYSTEM')) exit('External script access not allowed');
  *@package                         :  Packages
  *@subpackages                :  Base
  *@filename                        :  CF_RobotLoader
- *@description                    : This is registry auto loader for CF
+ *@description                    : This is auto loader for CF
  *@author                           : Sanjoy Dey
  *@copyright                     :  Copyright (c) 2013 - 2014,
  *@link	                   :  http://www.cygniteframework.com
@@ -53,6 +54,7 @@ if ( ! defined('CF_SYSTEM')) exit('External script access not allowed');
                                         'Dispatcher' =>  '\\Cygnite\\Base\\Dispatcher',
                                         'Router' =>  '\\Cygnite\\Base\\Router',
                                         'IRouter' =>  '\\Cygnite\\Base\\IRouter',
+                                        'Logger' =>  '\\Cygnite\\Base\\Logger',
                                         'Encrypt'  =>  '\\Cygnite\\Libraries\\Encrypt',
                                         'Errorhandler'  =>  '\\Cygnite\\Libraries\\Errorhandler', //name changed
                                         'Security'  =>  '\\Cygnite\\Libraries\\Security',
@@ -71,8 +73,9 @@ if ( ! defined('CF_SYSTEM')) exit('External script access not allowed');
                                         'Server'  =>  '\\Cygnite\\Libraries\\Globals\\Server',
                                         'Session'  =>  '\\Cygnite\\Libraries\\Globals\\Session',
                                          'IMemoryStorage'  =>  '\\Cygnite\\Libraries\\Cache\\Handler\\IMemoryStorage',
-                                        'Apc'  =>  '\\Cygnite\\Libraries\\Cache\\Handler\\Apc',
-                                        'CFMemcache'  =>  '\\Cygnite\\Libraries\\Cache\\Handler\\CFMemcache',
+                                         'Filecache'  =>  '\\Cygnite\\Libraries\\Cache\\Storage\\Filecache',
+                                        'Apc'  =>  '\\Cygnite\\Libraries\\Cache\\Storage\\Apc',
+                                        'CFMemcache'  =>  '\\Cygnite\\Libraries\\Cache\\Storage\\CFMemcache',
                                         'Pdf'  =>  '\\Cygnite\\Libraries\\Pdf',
                                         'Parser'  =>  '\\Cygnite\\Libraries\\Parser',
                                         'IRegistry'  =>  '\\Cygnite\\Loader\\IRegistry',
@@ -125,28 +128,25 @@ if ( ! defined('CF_SYSTEM')) exit('External script access not allowed');
                 $_classnames =array();
 
                 $_classnames = array_flip(self::$_classnames);
-
                 if(array_key_exists($_classnames['\\'.self::changeCase($classname,TRUE)], self::$_classnames)):
 
-                     if(preg_match("/Apps/i", self::$_classnames[self::changeCase($_classnames['\\'.$classname],TRUE)])):
-                         $rootdir = $ds=  '';
-                     else:
-                         $rootdir = CF_SYSTEM;
-                         $ds = DS;
-                     endif;
-                 $path = ltrim(self::changeCase(str_replace(array('\\','>','.'),DS,self::$_classnames[self::changeCase($_classnames['\\'.$classname],TRUE)])).EXT,'/');
+                         if(preg_match("/Apps/i", self::$_classnames[self::changeCase($_classnames['\\'.$classname],TRUE)])):
+                                 $rootdir = $ds=  '';
+                         else:
+                                 $rootdir = CF_SYSTEM; $ds = DS;
+                         endif;
+                     $path = ltrim(self::changeCase(str_replace(array('\\','>','.'),DS,
+                                                                                                   self::$_classnames[self::changeCase($_classnames['\\'.$classname],TRUE)])).EXT,'/');
+                    $includepath = getcwd().$ds.$rootdir.$path;
 
-                   echo  $includepath = getcwd().$ds.$rootdir.$path;
-                   echo "<br>";
-                             if(is_readable($includepath))
+                             if(is_readable($includepath)):
                                      return include_once $includepath;
-                             else
+                             else:
                                     throw new \Exception("Requested class $classname not found!!");
+                             endif;
                   else:
                         $callee = debug_backtrace();
                         trigger_error("Error occured while loading class $classname", E_USER_WARNING);
-                      //GHelper::trace();
-                      // GHelper::display_errors(E_USER_ERROR, 'Error Occurred ',"Error occured while loading class $classname", $callee[1]['file'],$callee[1]['line'],TRUE );
                   endif;
 
 
@@ -253,7 +253,7 @@ if ( ! defined('CF_SYSTEM')) exit('External script access not allowed');
         {
                    $class = $libpath = "";
                     if(!array_key_exists(ucfirst($key),self::$_classnames))
-                                throw new Exception("Requested $class Library not exists !!");
+                                throw new \Exception("Requested $class library doesn't  exists !!");
 
                     $class = self::$_classnames[ucfirst($key)];
                      $libpath = getcwd().DS.CF_SYSTEM.strtolower(str_replace(array('\\','.','>'),DS,$class)).EXT;
@@ -305,4 +305,3 @@ if ( ! defined('CF_SYSTEM')) exit('External script access not allowed');
                    trigger_error("Path not readable $libpath");
         }
     }
-//set_include_path(implode(PATH_SEPARATOR, array(get_include_path(), './libs', './controllers', './models')));

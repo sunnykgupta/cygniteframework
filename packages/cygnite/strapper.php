@@ -6,7 +6,6 @@ use Cygnite\Helpers\Url as Url;
 use Cygnite\Helpers\Config as Config;
 use Cygnite\Helpers\Profiler as Profiler;
 
-
 if ( ! defined('CF_SYSTEM')) exit('External script access not allowed');
 /**
  *  Cygnite Framework
@@ -36,13 +35,6 @@ if ( ! defined('CF_SYSTEM')) exit('External script access not allowed');
  */
 
    /**
-    * --------------------------------------------------------------------------------
-    *  Import all core helpers and start booting
-    * --------------------------------------------------------------------------------
-    */
-   // Cygnite::import(CF_SYSTEM.'>cygnite>helpers>CF_Profiler');
-   /**
-    * --------------------------------------------------------------------------------
     *  Turn on benchmarking application is profiling is on in configuration
     * --------------------------------------------------------------------------------
     */
@@ -57,14 +49,7 @@ if ( ! defined('CF_SYSTEM')) exit('External script access not allowed');
     define('APP_ENVIRONMENT', Config::getconfig('error_config','environment'));
     Cygnite::loader()->errorhandler->set_environment(Config::getconfig('error_config'));
 
-  /*----------------------------------------------------------------
-    * Import initial core classes of Cygnite Framework
-    * ----------------------------------------------------------------
-    */
-  //  Cygnite::import(CF_SYSTEM.'>cygnite>loader>CF_BaseController');// Load the Base Controller
-    //Cygnite::import(CF_SYSTEM.'>cygnite>helpers>CF_AutoLoader');
-
-   /* ----------------------------------------------------------------------
+    /* ----------------------------------------------------------------------
     *  Set Cygnite user defined encryption key and start booting
     * ----------------------------------------------------------------------
     */
@@ -96,25 +81,13 @@ if ( ! defined('CF_SYSTEM')) exit('External script access not allowed');
      * -----------------------------------------------------------------------------------------------
      */
       Cygnite::loader()->security;
-     //Cygnite::loader()->request('BaseSecurity')->unset_globals();
-    //Cygnite::loader()->request('BaseSecurity')->unset_magicquotes();
 
      $filename = preg_replace('#(\?.*)$#', '', $_SERVER['REQUEST_URI']);
     if (php_sapi_name() === 'cli-server' && is_file($filename)) {
           return false;
     }
-
-    // Create a Router
-    $router =Cygnite::loader()->router;
-
-    // Cygnite::import('apps.routerconfig');
-     Cygnite::import('apps.routes');
-
-
-    // Before Router Middleware
-    $router->before('GET', '/.*', function() {
-            header('X-Powered-By: CF Router');
-    });
+    //Give user provision to configure and set dynamic routes
+    Cygnite::import('apps.routes');
 
     /*-------------------------------------------------------
      * Booting completed. Lets handle user request!!

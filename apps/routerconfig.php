@@ -27,7 +27,7 @@ if ( ! defined('CF_SYSTEM')) exit('No External script access allowed');
  *@todo                           :  Multiple routiing configurations have to implemented and have to simplify
  *                                           core code for routing feature, have to add more filter validation.
  *
- */
+ */ 
 return array(
                         '/sayhello/(\w+)/(\d+)'                                                       => 'home.test',
                         '/blog(/\d{4}(/\d{2}(/\d{2}(/[a-z0-9_-]+)?)?)?)?'          => 'home.runcrons'

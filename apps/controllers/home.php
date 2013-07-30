@@ -1,7 +1,8 @@
 <?php
 namespace Apps\Controllers;
+
 use Cygnite;
-use Cygnite\Cygnite as Cyg;
+use Cygnite\Cygnite as Cf;
 use Cygnite\Loader\CF_BaseController as CF_BaseController;
 use Cygnite\Helpers\GHelper as GHelper;
 
@@ -32,7 +33,7 @@ use Cygnite\Helpers\GHelper as GHelper;
         *      }
         * In case if you are not able to access parameters passed into method
         * directly as above, you can also get the uri segment
-        *  echo Url::segment(3);
+        *  echo Cygnite\Helpers\Url::segment(2);
         *
         * That's it you are ready to start your awesome application with Cygnite Framework.
         *
@@ -49,7 +50,7 @@ use Cygnite\Helpers\GHelper as GHelper;
         public function __construct()
         {
               parent::__construct();
-
+              Cf::loader()->session->save('author','Sanjay from Session');
         }
         /*
          * Default method for your controller. Render welcome page to user.
@@ -58,12 +59,21 @@ use Cygnite\Helpers\GHelper as GHelper;
          */
         public function action_index()
         {
-               $this->render("welcome")->with(array(
-                                                                                     'author'=>$this->author,
-                                                                                    'email'=>'sanjoy09@hotmail.com',
-                                                                                    'messege' => 'Welcome to Cygnite Framework',
-                                                                                    'country'=> $this->country
-                                                                                  ));
+              //echo $encryt  = Cf::loader()->encrypt->encode("sanjoy"); echo "<br>";
+              //echo Cf::loader()->encrypt->decode($encryt);
+               echo Cygnite\Helpers\Url::segment(2);
+               echo Cygnite\Helpers\Url::isSecure();
+
+                  echo Cf::loader()->session->retrieve('author');
+
+              Cf::loader()->filecache->write_cache('welcomepage', $this->render("welcome",TRUE));
+              echo Cf::loader()->filecache->read_cache('welcomepage');
+             /*  $this->render("welcome")->with(array(
+                                                                                         'author'=>$this->author,
+                                                                                        'email'=>'sanjoy09@hotmail.com',
+                                                                                        'messege' => 'Welcome to Cygnite Framework',
+                                                                                        'country'=> $this->country
+                                                                                  ));*/
         }
 
         public function action_test($param1,$param2,$param3)

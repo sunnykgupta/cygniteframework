@@ -52,12 +52,13 @@ if ( ! defined('CF_SYSTEM')) exit('No External script access allowed');
                     if(!is_null($encryptkey)) :
                                 $this->set($encryptkey);
                                 if(!function_exists('mcrypt_create_iv')):
-                                        GHelper::display_errors(E_USER_WARNING, 'Unhandled Exception',"Mcrypt extention library not loaded", $callee[1]['file'],$callee[1]['line'],TRUE);
+                                        GHelper::showErrors(E_USER_WARNING, 'Unhandled Exception',"Mcrypt extention library not loaded", $callee[1]['file'],$callee[1]['line'],TRUE);
                                 else:
-                                $this->iv = mcrypt_create_iv(32);
+                                        \Cygnite\Cygnite::loader()->logger->write(__CLASS__.' Initialized',__FILE__,'debug');
+                                        $this->iv = mcrypt_create_iv(32);
                                 endif;
                     else:
-                              GHelper::display_errors(E_USER_WARNING, 'Unhandled Exception',
+                              GHelper::showErrors(E_USER_WARNING, 'Unhandled Exception',
                                       "Please check for encription key inside config file and autoload helper encrypt key is set or not ",
                                       $callee[1]['file'],$callee[1]['line'],TRUE);
                     endif;
@@ -84,7 +85,7 @@ if ( ! defined('CF_SYSTEM')) exit('No External script access allowed');
             {
                     if(!function_exists('mcrypt_create_iv')):
                             $callee = debug_backtrace();
-                            GHelper::display_errors(E_USER_WARNING, 'Unhandled Exception',"Mcrypt extention library not loaded", $callee[1]['file'],$callee[1]['line'],TRUE);
+                            GHelper::showErrors(E_USER_WARNING, 'Unhandled Exception',"Mcrypt extention library not loaded", $callee[1]['file'],$callee[1]['line'],TRUE);
                    else:
                           $this->value = base64_encode(mcrypt_encrypt(MCRYPT_RIJNDAEL_256, $this->securekey, $input, MCRYPT_MODE_ECB, $this->iv));
                     endif;

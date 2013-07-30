@@ -44,9 +44,9 @@ class GHelper
              return $values;
         }
 
-        public static function  display_errors($err_type,$err_header,$err_message,$err_file,$line_num = NULL,$debug = FALSE)
+        public static function  showErrors($err_type,$err_header,$err_message,$err_file,$line_num = NULL,$debug = FALSE)
         {
-                 Cyg::loader()->errorhandler->handle_errors($err_type, $err_header,$err_message, $err_file, $line_num,$debug);
+                 Cyg::loader()->errorhandler->handleExceptions($err_type, $err_header,$err_message, $err_file, $line_num,$debug);
         }
 
          public static function  log_error($messege,$error_code ="",$line_num = "")

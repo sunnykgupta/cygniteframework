@@ -69,6 +69,7 @@ class FormValidator
 
     public function __construct($validations=array(), $mandatories = array(), $sanatations = array(), $equal=array())
     {
+        \Cygnite\Cygnite::loader()->logger->write(__CLASS__.' Initialized',__FILE__,'debug');
         $this->validations = $validations;
         $this->sanatations = $sanatations;
         $this->mandatories = $mandatories;
