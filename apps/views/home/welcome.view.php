@@ -1,13 +1,14 @@
 <?php
-use Cygnite\Helpers\Url as Url;
-use Cygnite\Helpers\Assets as Assets;
+use Cygnite\Helpers\Assets;
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html lang="en">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" >
 <title>Welcome to Cygnite Framework</title>
-<?php echo Assets::addstyle('webroot/css/cygnite/style.css'); ?>
+<?php echo Assets::addstyle('webroot/css/cygnite/style.css');
+
+?>
 <!--<link rel="shortcut icon" href="<?php //echo GHelper::base_path(); ?>webroot/img/cygnite/favicon.png" >-->
 </head>
 <body>
@@ -19,7 +20,7 @@ use Cygnite\Helpers\Assets as Assets;
                  <div align="center" style=" margin-top: 16px;"><span style="font-size: 16px;">"Discover Cygnite to make your life simple and better."</span> </div>
              </div>
     </div>
-<?php //show($this->values); ?>
+<?php //show($this->params); ?>
 
   <div class="container-body">
 
@@ -108,7 +109,7 @@ use Cygnite\Helpers\Assets as Assets;
                     <div class="footer-inner" align="center">
                                   <div class="footerrow tweets" >
                                     <p style="font-size: 16px;">If you are exploring Cygnite Framework for the first time,
-                                        you should read the <br><a href="<?php echo Url::basepath(); ?>docs/">Quick guide</a> </p>
+                                        you should read the <br><a href="<?php echo \Cygnite\Helpers\Url::basepath(); ?>docs/">Quick guide</a> </p>
 
                                     <p style="font-size: 18px;">Hope you will enjoy simplicity of Cygnite Framework</p>
                                   </div>
@@ -124,6 +125,6 @@ use Cygnite\Helpers\Assets as Assets;
 
   <!-- ================================================== -->
 <!-- Placed at the end of the document so the pages load faster -->
-<?php echo Cygnite\Helpers\Assets::addscript('webroot/js/cygnite/jquery.js'); ?>
+<?php echo Assets::addscript('webroot/js/cygnite/jquery.js'); ?>
 </body>
 </html>

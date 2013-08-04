@@ -30,6 +30,6 @@
     if (version_compare(PHP_VERSION, '5.3', '<') )
         trigger_error('Sorry Cygnite Framework will only run on PHP version  5.3 or greater! \n',E_USER_ERROR);
 
- require_once CF_SYSTEM.DS.'cygnite'.DS.'helpers'.DS.'ghelper'.EXT;
-require CF_SYSTEM.DS.'cygnite'.DS.'robotloader'.EXT;
-require CF_SYSTEM.DS.'cygnite'.DS.'cygnite'.EXT;
+require_once getcwd().DS.CF_SYSTEM.DS.'cygnite'.DS.'helpers'.DS.'ghelper'.EXT;
+require getcwd().DS.CF_SYSTEM.DS.'cygnite'.DS.'robotloader'.EXT;
+require getcwd().DS.CF_SYSTEM.DS.'cygnite'.DS.'cygnite'.EXT;

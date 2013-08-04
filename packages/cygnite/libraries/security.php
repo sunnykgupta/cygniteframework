@@ -1,8 +1,7 @@
-<?php
-namespace Cygnite\Libraries;
+<?php namespace Cygnite\Libraries;
 
 use Cygnite\Libraries\Globals;
-use Cygnite\Libraries\Globals\ISecureData;
+//use Cygnite\Libraries\Globals\ISecureData;
 
 if ( ! defined('CF_SYSTEM')) exit('External script access not allowed');
 /**
@@ -33,8 +32,7 @@ if ( ! defined('CF_SYSTEM')) exit('External script access not allowed');
  *
  *
  */
-//Cygnite::import(CF_SYSTEM.'>cygnite>libraries>globals>CF_Globals');// includes GLOBAL class
-//Cygnite::import(CF_SYSTEM.'>cygnite>libraries>globals>ISecureData'); // includes ISecureData Interface
+
 /**
  *
  *  Security class creates instance for a class thats inheriting GLOBALS class and implementing

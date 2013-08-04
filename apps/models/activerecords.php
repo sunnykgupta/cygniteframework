@@ -1,14 +1,13 @@
 <?php
 namespace Apps\Models;
 
-use Cygnite\Cygnite as Cygnite;
-use Cygnite\Sparker\CF_BaseModel as CF_BaseModel;
-Cygnite::import('packages.cygnite.sparker.cf_basemodel');
+use Cygnite\Cygnite as Cf;
+use Cygnite\Sparker\CF_BaseModel;
 
 class Activerecords extends CF_BaseModel
 {
 
-    function __construct()
+    public function __construct()
     {
        parent::__construct('cygnite');
     }

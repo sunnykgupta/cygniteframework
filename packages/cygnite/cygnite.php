@@ -31,40 +31,53 @@ if ( ! defined('CF_SYSTEM')) exit('External script access not allowed');
 
     //$seperator = (strstr(strtoupper(substr(PHP_OS, 0, 3)), "WIN")) ?  "\\"  :  "/";
 
-     class Cygnite extends \Cygnite\Robotloader
-    {
-            static private $instance = NULL;
-          /**
-            * ------------------------------------------------------------------------------------------
-            * Cygnite Constructor
-            * -----------------------------------------------------------------------------------------
-            *Call parent init method
-            */
-            public function __construct()
-            {
-                  parent::init();
-            }
-           /**
-            * ------------------------------------------------------------------------------------------
-            * Return Singleton object of Cygnite
-            * -----------------------------------------------------------------------------------------
-            * The loader method is used to return singleton object of Cygnite
-            *@return object
-            */
-            public static function loader()
-            {
-                     if(is_null(self::$instance))
-                        self::$instance = new self();
-                    return self::$instance;
-            }
+/**
+ * Class Cygnite
+ *
+ * @package Cygnite
+ */
+ class Cygnite extends \Cygnite\RobotLoader
+ {
 
-         /*
-          *@warning  You can´t change this!
-          */
-         public static function powered_by()
-         {
-                return 'Cygnite Framework - '.CF_VERSION.' Powered by - Sanjoy Productions (<a href="http://www.cygniteframework.com">http://www.cygniteframework.com</a>)' ;
-         }
+    /**
+     * @var null
+     */
+     static private $instance = NULL;
+
+    /**
+    * ------------------------------------------------------------------------------------------
+    * Cygnite Constructor
+    * -----------------------------------------------------------------------------------------
+    *Call parent init method
+    */
+    public function __construct()
+    {
+          parent::init();
     }
+
+   /**
+    * ------------------------------------------------------------------------------------------
+    * Return Singleton object of Cygnite
+    * -----------------------------------------------------------------------------------------
+    * The loader method is used to return singleton object of Cygnite
+    *@return object
+    */
+    public static function loader()
+    {
+             if(is_null(self::$instance))
+                self::$instance = new self();
+            return self::$instance;
+    }
+
+    /**
+     * @warning  You can´t change this!
+     * @return string
+     */
+     public static function powered_by()
+     {
+            return 'Cygnite Framework - '.CF_VERSION.' Powered by - Sanjoy Productions (<a href="http://www.cygniteframework.com">http://www.cygniteframework.com</a>)' ;
+     }
+
+  }
     Cygnite::loader();
-    require_once CF_SYSTEM.DS.'cygnite'.DS.'strapper'.EXT;
+    require_once getcwd().DS.CF_SYSTEM.DS.'cygnite'.DS.'strapper'.EXT;

@@ -30,53 +30,52 @@ if ( ! defined('CF_SYSTEM')) exit('No External script access allowed');
  *
  */
     $config = array();
-   $config = Config::appsconfig();
+    $config = Config::appsconfig();
     Config::store_config_items('config_items',$config);
     unset($config);
-     //Get the configuration variables
+    //set the base path
     Url::set_basepath(Config::getconfig('global_config','base_path'));
 
     class Config
     {
-            private static $config = array();
+        private static $config = array();
 
-            public static function getconfig($arrkey,$keyval = FALSE)
-            {
-                    $config = array();
+        public static function getconfig($arrkey,$keyval = FALSE)
+        {
+            $config = array();
 
-                    $config =  Config::get_config_items('config_items');
+            $config =  Config::get_config_items('config_items');
 
-                    if(is_null($arrkey))
-                           throw new InvalidArgumentException("Cannot pass null argument to ".__METHOD__);
+            if(is_null($arrkey))
+                   throw new InvalidArgumentException("Cannot pass null argument to ".__METHOD__);
 
-                     if(FALSE !== array_key_exists($arrkey, $config) && $keyval == FALSE)
-                                return $config[$arrkey];
+             if(FALSE !== array_key_exists($arrkey, $config) && $keyval == FALSE)
+                        return $config[$arrkey];
 
-                    if(FALSE !== array_key_exists($arrkey, $config) && $keyval != FALSE)
-                          return $config[$arrkey][$keyval];
+            if(FALSE !== array_key_exists($arrkey, $config) && $keyval != FALSE)
+                  return $config[$arrkey][$keyval];
+        }
 
-            }
+        public static function store_config_items($name, $values = array())
+        {
+              self::$config[$name]  = $values;
+        }
 
-            public static function store_config_items($name, $values = array())
-            {
-                  self::$config[$name]  = $values;
-            }
+        public static function get_config_items($key)
+        {
+          if(is_null($key))
+               throw new InvalidArgumentException("Cannot pass null argument to ".__METHOD__);
+          return self::$config[strtolower($key)];
+        }
 
-            public static function get_config_items($key)
-            {
-                if(is_null($key))
-                           throw new InvalidArgumentException("Cannot pass null argument to ".__METHOD__);
-              return self::$config[strtolower($key)];
-            }
-
-            public static function appsconfig()
-            {
-                  $config = array();
-                 $config['global_config'] = include_once strtolower(APPPATH).DS.'configs'.DS.'config'.EXT;
-                 $config['db_config'] = include_once strtolower(APPPATH).DS.'configs'.DS.'database'.EXT;
-                 $config['session_config'] = include_once strtolower(APPPATH).DS.'configs'.DS.'session'.EXT;
-                 $config['autoload_config'] = include_once strtolower(APPPATH).DS.'configs'.DS.'autoload'.EXT;
-                 $config['routing_config'] = include_once strtolower(APPPATH).DS.'routerconfig'.EXT;
-                 return $config;
-            }
+        public static function appsconfig()
+        {
+             $config = array();
+             $config['global_config'] = include_once strtolower(APPPATH).DS.'configs'.DS.'config'.EXT;
+             $config['db_config'] = include_once strtolower(APPPATH).DS.'configs'.DS.'database'.EXT;
+             $config['session_config'] = include_once strtolower(APPPATH).DS.'configs'.DS.'session'.EXT;
+             $config['autoload_config'] = include_once strtolower(APPPATH).DS.'configs'.DS.'autoload'.EXT;
+             $config['routing_config'] = include_once strtolower(APPPATH).DS.'routerconfig'.EXT;
+             return $config;
+        }
     }

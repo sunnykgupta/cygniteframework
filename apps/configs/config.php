@@ -174,14 +174,15 @@ return array (
                         *---------------------------------------------------------------------------
                         * Cygnite Application Logs
                         *---------------------------------------------------------------------------
-                        * Though cygnite log generator library available we need to integrate
-                        * with core files in order to make work globally.
+                        * Though cygnite log generator library available we need to update
+                        * with core files in order to make it work globally.
                         */
                         'log_errors'                   => 'on',
 
 
                         //You can set value  0- to off, 1 - Generate and write into log file
                         'log_trace_type'         => 0,
+    
                       /*
                         *---------------------------------------------------------------------------
                         * Logs File Name

@@ -1,5 +1,4 @@
-<?php
-namespace Cygnite\Libraries\Globals;
+<?php namespace Cygnite\Libraries\Globals;
 
 /**
  *  Cygnite Framework

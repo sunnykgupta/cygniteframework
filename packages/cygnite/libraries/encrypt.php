@@ -1,15 +1,16 @@
 <?php
 namespace Cygnite\Libraries;
 
-use Cygnite\Helpers\Config as Config;
-use Cygnite\Helpers\GHelper as GHelper;
+use Cygnite\Cygnite;
+use Cygnite\Helpers\Config;
+use Cygnite\Helpers\GHelper;
 
 
 if ( ! defined('CF_SYSTEM')) exit('No External script access allowed');
 /**
  *  Cygnite Framework
  *
- *  An open source application development framework for PHP 5.2x or newer
+ *  An open source application development framework for PHP 5.3 or newer
  *
  *   License
  *
@@ -54,7 +55,7 @@ if ( ! defined('CF_SYSTEM')) exit('No External script access allowed');
                                 if(!function_exists('mcrypt_create_iv')):
                                         GHelper::showErrors(E_USER_WARNING, 'Unhandled Exception',"Mcrypt extention library not loaded", $callee[1]['file'],$callee[1]['line'],TRUE);
                                 else:
-                                        \Cygnite\Cygnite::loader()->logger->write(__CLASS__.' Initialized',__FILE__,'debug');
+                                        Cygnite::loader()->logger->write(__CLASS__.' Initialized',__FILE__,'debug');
                                         $this->iv = mcrypt_create_iv(32);
                                 endif;
                     else:

@@ -33,18 +33,48 @@ use Cygnite\Helpers\GHelper as GHelper;
 
 class Logger
 {
-      protected static $log_date_format =  'Y-m-d H:i:s';
-      protected static $file_name = NULL;
-      protected static $fp = NULL;
-      protected static $log_path;
-      protected static $filesize;
-      protected static $log_ext = ".log";
-      protected static $config = array();
-      public static $log_errors = '';
+    /**
+     * @var string
+     */
+    protected static $log_date_format =  'Y-m-d H:i:s';
+    /**
+     * @var null
+     */
+    protected static $file_name = NULL;
+    /**
+     * @var null
+     */
+    protected static $fp = NULL;
+    /**
+     * @var
+     */
+    protected static $log_path;
+    /**
+     * @var
+     */
+    protected static $filesize;
+    /**
+     * @var string
+     */
+    protected static $log_ext = ".log";
+    /**
+     * @var array
+     */
+    protected static $config = array();
+    /**
+     * @var string
+     */
+    public static $log_errors = '';
 
-      public function __construct()   { }
+    /**
+     *
+     */
+    public function __construct()   { }
 
-      private static function get_log_config()
+    /**
+     *
+     */
+    private static function get_log_config()
       {
                 $logpath = "";
                 if(empty(self::$config))
@@ -58,22 +88,36 @@ class Logger
                 self::$file_name  = (Config::getconfig('global_config','log_file_name') !="") ? Config::getconfig('global_config','log_file_name')  : 'cf_error_logs';
       }
 
-      public static function read()
+    /**
+     *
+     */
+    public static function read()
       {
            // var_dump( self::$config);
       }
 
-      private static function open($filepath)
+    /**
+     * @param $filepath
+     */
+    private static function open($filepath)
       {
               self::$fp = fopen($filepath, 'a') OR exit("Can't open log file ".self::$file_name.self::$log_ext."!");
       }
 
-      public  function write($msg= "",$filename,$level = "log_debug", $filesize = 1)
+    /**
+     * @param string $msg
+     * @param        $filename
+     * @param string $level
+     * @param int    $filesize
+     * @return bool
+     * @throws \Exception
+     */
+    public  function write($msg= "",$filename,$level = "log_debug", $filesize = 1)
       {
                 $log= $traceType = "";
                  self::get_log_config();
 
-                 $filepath = self::$log_path.self::$file_name.'-'.date('Y-m-d').''.self::$log_ext;
+                 $filepath = self::$log_path.self::$file_name.'-'.date('Y-m-d').self::$log_ext;
                 self::$filesize = $filesize *(1024*1024); // Megs to bytes
                 $log = Config::getconfig('global_config','log_errors');
                 $traceType = Config::getconfig('global_config','log_trace_type');
@@ -91,7 +135,15 @@ class Logger
 
           }
 
-         static private function _write($msg,$filepath,$filename,$level = "debug", $filesize = 1)
+    /**
+     * @param        $msg
+     * @param        $filepath
+     * @param        $filename
+     * @param string $level
+     * @param int    $filesize
+     * @return bool
+     */
+    static private function _write($msg,$filepath,$filename,$level = "debug", $filesize = 1)
           {
                if (!is_resource(self::$fp))
                         self::open($filepath);

@@ -1,10 +1,9 @@
 <?php
 namespace Apps\Controllers;
 
-use Cygnite;
-use Cygnite\Cygnite as Cyg;
-use Cygnite\Loader\CF_BaseController as CF_BaseController;
-use Cygnite\Helpers\GHelper as GHelper;
+use Cygnite\Cygnite;
+use Cygnite\Loader\CF_BaseController;
+use Cygnite\Helpers\GHelper ;
 
 
     class Welcomeuser extends CF_BaseController
@@ -96,18 +95,17 @@ use Cygnite\Helpers\GHelper as GHelper;
 
         public function action_gethtml()
        {
-            Cyg::import('packages.cygnite.libraries.form');
-            $form = \Cygnite\Libraries\CForm::initialize("contact_form");
+            $form = \Cygnite\Libraries\CForm::initialize("CForm");
 
             echo \Cygnite\Libraries\CForm::open(array(
+                                   'name'  => 'UserForm',
                                    'method' => 'post',
                                    'action' => '/libreoffice/test',
                                    'id' => '',
                                    'class' => ''
                                   ));
 
-        echo $form->input("name",array("type"=>"text"))->class("textbox","required")->id("name");
-        echo $form->input("age")->type("password")->value("true")->id("age");
+
         echo $form->textarea("age1")->value("true")->id("age");
         echo $form->label()->value('Username')->class('user-name');
         echo $form->select("years")->style("width:100px;")->options(
@@ -120,6 +118,18 @@ use Cygnite\Helpers\GHelper as GHelper;
         echo $form->input("fileupload",array("type"=>"file"))->multiple('multiple');
         echo $form->input("update",array("type"=>"button"))->value('Save');
         echo \Cygnite\Libraries\CForm::close();
+
+        //$form1 = \Cygnite\Libraries\CForm::initialize("test");
+
+            echo \Cygnite\Libraries\CForm::open(array(
+                                    'name'  => 'test',
+                                   'method' => 'get',
+                                   'action' => '/test',
+                                   'id' => '',
+                                   'class' => 'testubn'
+                                  ));
+       echo $form->input("tw",array("type"=>"button"))->value('ghh');
+            echo \Cygnite\Libraries\CForm::close();
 
     }
 
@@ -184,8 +194,8 @@ use Cygnite\Helpers\GHelper as GHelper;
 
       public function action_userlist()
       {
-              $users = Cyg::loader()->activerecords->getdetails();
-              Cyg::loader()->activerecords->delete();
+              $users = Cygnite::loader()->activerecords->getdetails();
+              Cygnite::loader()->activerecords->delete();
               var_dump($users);exit;
 
               $this->render('userlist')->with(array('users' => $users));
@@ -252,10 +262,11 @@ use Cygnite\Helpers\GHelper as GHelper;
              //   echo Url::segment(3);
              // $users = $this->app()->users->getdetails();
 //show($users);
-               Cygnite::import(CF_SYSTEM.'>cygnite>libraries>CF_Form');
-               $this->app()->helper('Assets');
+              // Cygnite::import(CF_SYSTEM.'>cygnite>libraries>CF_Form');
+          //     $this->app()->helper('Assets');
+               \Cygnite\Cygnite::import('packages.cygnite.helpers.assets');
 
-               Cygnite::loader()->request('Mailer')->Host = '';
+              // Cygnite::loader()->request('Mailer')->Host = '';
 /*
                $this->app()->request('Mailer')->Host = "smtp1.example.com;smtp2.example.com";  // specify main and backup server
                $this->app()->request('Mailer')->SMTPAuth = true;     // turn on SMTP authentication
@@ -280,7 +291,8 @@ use Cygnite\Helpers\GHelper as GHelper;
                                                 'title'=> "Welcome Sanjoy",
                                                 'header_title'=> "Header Page",
                                                 'content_title'=> "Content Page",
-                                                'footer_title'=> "Footer Page"
+                                                'footer_title'=> "Footer Page",
+                                                'test' => 'Sanjay'
                                                 ));
 
               /* $this->render("register")->with(array(

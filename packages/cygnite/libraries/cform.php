@@ -1,6 +1,8 @@
 <?php
 namespace Cygnite\Libraries;
 
+use Cygnite\Cygnite;
+
 if ( ! defined('CF_SYSTEM')) exit('No External script access allowed');
 /**
  *  Cygnite Framework
@@ -33,7 +35,7 @@ if ( ! defined('CF_SYSTEM')) exit('No External script access allowed');
 /*************************************************************************************************
  * Example Usage
  *
- * $object = Form::initialize("form");
+ * $object = \Cygnite\Libraries\CForm::initialize("form");
  * print $object->input("name",array("type"=>"text"))->class("textbox","required")->id("name");
  * print $object->input("age")->type("password")->value("true")->id("age");
  * print $object->textarea("age1")->value("true")->id("age");
@@ -41,15 +43,14 @@ if ( ! defined('CF_SYSTEM')) exit('No External script access allowed');
  *
  *
  */
-
     class CForm
     {
 
         private static $object_holder = array();
 
-        public static $formname;
+        public static $formname ;
 
-        public static $form_open;
+        public static $form_open = array();
 
         private $elements = array();
 
@@ -57,7 +58,7 @@ if ( ! defined('CF_SYSTEM')) exit('No External script access allowed');
 
         public static function initialize($form_name)
         {
-            \Cygnite\Cygnite::loader()->logger->write(__CLASS__.' Initialized',__FILE__,'debug');
+            Cygnite::loader()->logger->write(__CLASS__.' Initialized',__FILE__,'debug');
             self::$formname = $form_name;
             ob_start();
             if(!isset(self::$object_holder[$form_name])):
@@ -70,18 +71,18 @@ if ( ! defined('CF_SYSTEM')) exit('No External script access allowed');
         {
             $args = func_get_args();
             $element_str ="";
-             if(is_null(self::$form_open)):
+             if(!isset(self::$form_open[self::$formname])):
                     foreach($args[0] as $key=>$value):
                          $element_str .= "{$key} = '{$value}' ";
                     endforeach;
              endif;
 
-            return "<form name='".self::$formname."' $element_str>".PHP_EOL;
+            return "<form $element_str>".PHP_EOL;
         }
 
         public static function close()
         {
-             if(!is_null(self::$form_open))
+             if(!isset(self::$form_open[self::$formname]))
                 return "</form>";
         }
 

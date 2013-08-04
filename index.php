@@ -13,15 +13,15 @@
  *   obtain it through the world-wide-web, please send an email
  *   to sanjoy@hotmail.com so I can send you a copy immediately.
  *
- * @Package                          : Cygnite Framework
- *@Filename                         : index.php
- *@Description                    : This index file is entry point of the framework to define framework base paths.
- *@Author                            : Cygnite Dev Team
- *@Copyright                     :  Copyright (c) 2013 - 2014,
- *@Link	                  		    :  http://www.cygniteframework.com
- *@Since	                           :  Version 1.0
- *@Filesource
- *@Warning                   :  Any changes in this library can cause abnormal behaviour of the framework
+ *@package                          : Cygnite Framework
+ *@filename                         : index.php
+ *@description                    : This index file is entry point of the framework to define framework base paths.
+ *@author                            : Cygnite Dev Team
+ *@copyright                     :  Copyright (c) 2013 - 2014,
+ *@link	                  		    :  http://www.cygniteframework.com
+ *@since	                           :  Version 1.0
+ *@filesource
+ *@warning                   :  Any changes in this library can cause abnormal behaviour of the framework
  *
  *
  */

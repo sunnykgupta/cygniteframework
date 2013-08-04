@@ -1,9 +1,13 @@
-<?php
-namespace Cygnite\Base;
+<?php namespace Cygnite\Base;
 
 use Cygnite\Helpers\GHelper as GHelper;
 use Cygnite\Helpers\Config as Config;
 
+/**
+* Class Dispatcher
+*
+*@package Cygnite\Base
+*/
 class Dispatcher
 {
   /**
@@ -12,17 +16,30 @@ class Dispatcher
    */
     static private $index_page = 'index.php';
 
+    /**
+    * @var
+    */
     private $router;
-  /**
-   * Define the router variable. default value set as FALSE
-   * @var bool
-   */
+
+    /**
+    * Define the router variable. default value set as FALSE
+    * @var bool
+    */
     static private  $router_enabled = FALSE;
 
+    /**
+    * @var array
+    */
     private $default = array();
 
+    /**
+    * @var null
+    */
     private $routes=NULL;
 
+    /**
+    * @param $route
+    */
     public function __construct($route)
     {
         $this->router = $route;
@@ -33,6 +50,11 @@ class Dispatcher
 
     }
 
+    /**
+    * @param $routes
+    * @param bool $quitAfterRun
+    * @return mixed
+    */
     private function  matches( $routes , $quitAfterRun = false)
      {
            $uri = $this->router->current_uri();
@@ -65,6 +87,9 @@ class Dispatcher
             }
      }
 
+    /**
+    *
+    */
     public function handle()
     {
         if($this->router->current_uri() =='/' ||  $this->router->current_uri() == '/'.self::$index_page):
@@ -121,7 +146,10 @@ class Dispatcher
         endif;
     }
     
-   public  function __destruct()
+    /**
+    *
+    */
+    public  function __destruct()
     {
         $this->router->run();
     }

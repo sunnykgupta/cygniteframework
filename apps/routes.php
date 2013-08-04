@@ -25,8 +25,7 @@ if ( ! defined('CF_SYSTEM')) exit('No External script access allowed');
  * @Since	                  :  Version 1.0
  * @Filesource
  * @warning                     :  Any changes in this library can cause abnormal behaviour of the framework
- *@todo                           :  Multiple routiing configurations have to implemented and have to simplify
- *                                           core code for routing feature, have to add more filter validation.
+ *
  *
  */
     $router = NULL;

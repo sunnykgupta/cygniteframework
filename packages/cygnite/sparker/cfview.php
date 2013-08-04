@@ -36,7 +36,7 @@ if ( ! defined('CF_SYSTEM')) exit('External script access not allowed');
     {
               var $directory = NULL;
               var $view_path = NULL;
-              var $template,$values =array();
+              var $template,$params,$layoutparams =array();
               public $requestedcontroller;
               public $model = NULL;
               private static $name = array();
@@ -115,7 +115,7 @@ if ( ! defined('CF_SYSTEM')) exit('External script access not allowed');
           protected function createsections(array $sections)
           {
                 foreach($sections as $key=>$value):
-                    $this->template[$key] = $value;
+                        $this->template[$key] = $value;
                 endforeach;
           }
 
@@ -123,8 +123,8 @@ if ( ! defined('CF_SYSTEM')) exit('External script access not allowed');
           {
               $trace = debug_backtrace();
               //$this->requestedcontroller = strtolower(str_replace('AppsController','',$trace[1]['class']));
-              $this->requestedcontroller = strtolower($trace[1]['class']);
-              $this->layoutparams = $params;
+              $this->requestedcontroller =  str_replace(strtolower(APPPATH).'\\controllers\\', '', strtolower($trace[1]['class']));
+              $this->params = $params;
               $path= APPPATH.DS.'views'.DS.$this->requestedcontroller.DS;
                self::$name[strtolower($layout)] = $layout;
                if(is_readable($path.rtrim(self::$name[strtolower($layout)].'.layout').EXT)):
@@ -138,7 +138,7 @@ if ( ! defined('CF_SYSTEM')) exit('External script access not allowed');
 
           public function renderlayout($page)
           {
-              $path= APPPATH.DS.'views'.DS.$this->requestedcontroller.DS.$page.EXT;
+               $path= APPPATH.DS.'views'.DS.$this->requestedcontroller.DS.$page.EXT;
               ob_start();
               try{
                   include_once $path;
@@ -151,7 +151,7 @@ if ( ! defined('CF_SYSTEM')) exit('External script access not allowed');
              public function with($arr_values)
              {
                     if(is_array($arr_values))
-                              $this->values = (array) $arr_values;
+                              $this->params = (array) $arr_values;
                     $this->loadview();
              }
 
@@ -181,6 +181,6 @@ if ( ! defined('CF_SYSTEM')) exit('External script access not allowed');
              {
                  ob_end_flush(); //ob_end_clean();
                  ob_get_flush();
-                 unset($this->values);
+                 unset($this->params);
              }
     }

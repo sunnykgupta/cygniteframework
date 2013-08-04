@@ -54,13 +54,15 @@ if ( ! defined('CF_SYSTEM')) exit('External script access not allowed');
     * ----------------------------------------------------------------------
     */
     if(!is_null(Config::getconfig('global_config','cf_encryption_key')) || in_array('encrypt', Config::getconfig('autoload_config','helpers')))
-              define('CF_ENCRYPT_KEY',Config::getconfig('global_config','cf_encryption_key'));
+         define('CF_ENCRYPT_KEY',Config::getconfig('global_config','cf_encryption_key'));
 
   /*----------------------------------------------------------------
     * Get Session config and set it here
     * ----------------------------------------------------------------
     */
     define('SECURE_SESSION', Config::getconfig('session_config','cf_session'));
+
+    date_default_timezone_set(Config::getconfig('session_config','timezone'));
 
     /*----------------------------------------------------------------
     * Autoload Session library based on user configurations
@@ -86,6 +88,7 @@ if ( ! defined('CF_SYSTEM')) exit('External script access not allowed');
     if (php_sapi_name() === 'cli-server' && is_file($filename)) {
           return false;
     }
+    $router ="";
     //Give user provision to configure and set dynamic routes
     Cygnite::import('apps.routes');
 

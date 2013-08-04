@@ -29,7 +29,7 @@ namespace Cygnite\Loaders;
  *
  */
 
-class Appregistry implements \IRegistry
+class Appregistry implements IRegistry
 {
         private static $_register_dir = array();
         private static $_library = NULL;
