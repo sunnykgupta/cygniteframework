@@ -132,7 +132,7 @@ class HTML
      * @return string
      */
     public static function entities($value)
-    { 
+    {
             return htmlentities($value, ENT_QUOTES, Config::getconfig('global_config','encoding'), FALSE);
     }
 
@@ -171,7 +171,7 @@ class HTML
     * @internal param mixed $data
     * @return string
     */
-    private function santize($value,$type='')
+    public function sanitize($value,$type='')
     {
         switch($type):
             case 'strong':

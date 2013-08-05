@@ -18,6 +18,7 @@
     <section class="section-list-content">
         <div class="container">
             <div class="menu">
+                <!-- -->
                             <nav class="section-menu">
                                         <ul>
                                             <li> <h2>Introduction</h2></li>
@@ -30,101 +31,112 @@
 
                                             <li>Getting Started
 
-                                            <ul>
-                                            <li><a href="/docs/installation">Controller</a></li>
+                                                    <ul>
+                                            <li><a href="/docs/installation">Controllers</a></li>
                                             <li><a href="/docs/configuration">Models</a></li>
                                             <li><a href="/docs/lifecycle">Views</a></li>
                                             <li><a href="/docs/routing">Routing</a></li>
                                             <li><a href="/docs/requests">Libraries</a></li>
                                             <li><a href="/docs/responses">Helpers</a></li>
-                                            <li> Libraries</li>
-                                            <li><a href="/docs/controllers">Encryption library</a></li>
-                                            <li><a href="/docs/errors">Errors &amp; Logging</a></li>
-                                             <li><a href="/docs/errors">Html Form Builder</a></li>
-                                             <li><a href="/docs/errors">Html Form Builder</a></li>
-                                             <li><a href="/docs/errors">Download Library</a></li>
-                                             <li><a href="/docs/errors">Mailer Library</a></li>
-                                              <li><a href="/docs/errors">File Upload Library</a></li>
-                                              <li><a href="/docs/errors">Input Library</a></li>
-                                              <li><a href="/docs/errors">Cache Library</a></li>
-                                               <li> Helpers</li>
-                                               <li><a href="/docs/errors">Assets Helper</a></li>
-                                                 <li><a href="/docs/errors">Global Helper</a></li>
-                                                 <li><a href="/docs/errors">Profiler Helper</a></li>
-                                                 <li><a href="/docs/errors">Url Helper</a></li>
-                                                 <li><a href="/docs/errors">Validator Helper</a></li>
+                                            <li><a href="/docs/routing">Autoloader</a></li>
+                                            <li><a href="/docs/routing">Namespaces</a></li>
                                             </ul></li>
-                                            <li>Learning More
 
+                                            <li> Libraries
                                             <ul>
-                                            <li><a href="/docs/cache">Cache</a></li>
-                                            <li><a href="/docs/events">Events</a></li>
-                                            <li><a href="/docs/facades">Facades</a></li>
-                                            <li><a href="/docs/html">Forms &amp; HTML</a></li>
-                                            <li><a href="/docs/helpers">Helpers</a></li>
-                                            <li><a href="/docs/ioc">IoC Container</a></li>
-                                            <li><a href="/docs/localization">Localization</a></li>
-                                            <li><a href="/docs/mail">Mail</a></li>
-                                            <li><a href="/docs/packages">Package Development</a></li>
-                                            <li><a href="/docs/pagination">Pagination</a></li>
-                                            <li><a href="/docs/queues">Queues</a></li>
-                                            <li><a href="/docs/security">Security</a></li>
-                                            <li><a href="/docs/session">Session</a></li>
-                                            <li><a href="/docs/templates">Templates</a></li>
-                                            <li><a href="/docs/testing">Unit Testing</a></li>
-                                            <li><a href="/docs/validation">Validation</a></li>
+                                            <li><a href="/docs/controllers">Encryption</a></li>
+                                            <li><a href="/docs/errors">Errors &amp; Logging</a></li>
+                                             <li><a href="/docs/errors">Form Builder</a></li>
+                                             <li><a href="/docs/errors">Download</a></li>
+                                             <li><a href="/docs/errors">Mailer</a></li>
+                                              <li><a href="/docs/errors">Upload</a></li>
+                                              <li><a href="/docs/errors">Input</a></li>
+                                              <li><a href="/docs/errors">Cache</a></li>
+                                              </ul></li>
+
+                                               <li> Helpers
+                                                   <ul>
+                                               <li><a href="/docs/errors">Assets</a></li>
+                                                 <li><a href="/docs/errors">Global</a></li>
+                                                 <li><a href="/docs/errors">Profiler</a></li>
+                                                 <li><a href="/docs/errors">Url</a></li>
+                                                 <li><a href="/docs/errors">Validation</a></li>
                                             </ul></li>
-                                            <li>Database
+
+                                            <li>Model & Database
 
                                             <ul>
                                             <li><a href="/docs/database">Basic Usage</a></li>
                                             <li><a href="/docs/queries">Query Builder</a></li>
-                                            <li><a href="/docs/eloquent">Eloquent ORM</a></li>
-                                            <li><a href="/docs/schema">Schema Builder</a></li>
-                                            <li><a href="/docs/migrations">Migrations &amp; Seeding</a></li>
-                                            <li><a href="/docs/redis">Redis</a></li>
                                             </ul></li>
-                                            <li>Artisan CLI
 
-                                            <ul>
-                                            <li><a href="/docs/artisan">Overview</a></li>
-                                            <li><a href="/docs/commands">Development</a></li>
-                                            </ul></li>
                                             </ul>
                                     </nav>
             </div>
 
 
             <article class="section-body">
-                <h1>Introduction</h1>
+                <h1> Controllers</h1>
 
-                        <p><a name="introduction-of-cygnite-framework"></a></p>
 
-                        <h2>Cygnite Framework for Web Developers</h2>
-                        <p> Cygnite is high performance php web application framework and gives you creative experience of developing
-                                dynamic web applications. Its has powerful libraries to reduce your development time such as authentication,
-                                secure session, powerful routing, and it's namespaces which avoid naming collisions with powerful
-                                dynamic library import without sacrificing performance.
+                        <p><a name="controllers-of-cygnite-framework"></a></p>
+
+                        <h2>How to set default Controllers ?</h2>
+                        <p> You can set your default controller of your application simply changing configuration in apps/configs/config.php file. For example-
+<pre class="code">
+     return array(
+               'default_controller'    => 'home',
+               'default_method'          => 'index',
+    );
+</pre>
+                     You can also change the default action of your controller in above configuration.
+
                         </p>
 
-                        <p> Cygnite primary aim is user friendly MVC architecture to make developers job easier. </p>
+                        <h2>Controller </h2>
+                        <p> Controllers are resides in apps/controllers/ directory.
+                                <ol>
+                                    <li> All controllers must have nameapces included in the top of the page. </li>
+                                    <li> Controllers should extends CF_BaseController.</li>
+                                    <li>Controllers should have constructor and it should call parent constructor.</li>
+                                      <li>Controllers all methods should have prefixed with action_method_name.</li>
+                                      <li>You can import classes by use keyword under namespaces.</li>
+                                </ol>
+                                For example let us create a simple controller to render view and see how it is works-
+<pre class="code">
+ namespace Apps\Controllers;
 
-                        <p><a name="learning-cygnite-framework"></a></p>
+    use Cygnite\Cygnite;
+    use Cygnite\Loader\CF_BaseController;
+    use Cygnite\Helpers\GHelper;
 
-                        <h2>Learn Cygnite Framework</h2>
+    class Home extends CF_BaseController
+    {
+        public function __construct()
+        {
+             parent::__construct();
+        }
 
-                        <p> Many of the MVC Framework has good features but poor user guide which troubles developers to learn and apply.
-                            Cygnite Framework has expressive user guide to quick start your next web application development.
+        public function action_index()
+        {
+          $this->render('welcome',array( 'title'=> "Welcome to Cygnite Framework"));
+        }
+    }
+</pre>
+                               You must create your view page inside apps/views/welcome.view.php page to render it.</p>
+                        <p>We are done ! Now lets call index action via browser url to view output. For example-  </p>
+<pre class="code">
+http://www.example.com/cygnite/index.php/home/index
+</pre>
+
+                        <h2>How to import Libraries ?</h2>
+                        <p>Cygnite Framework makes your work very simple enjoyable. For more details you can visit <a href="">libraries guide</a>.
+                        </p>
+                          <h2>How to import Helpers ?</h2>
+                        <p> You can also import helpers  into any file using namespaces. For more details you can visit <a href="">helpers guide</a>.
                         </p>
 
-
-                        <p><a name="development-team"></a></p>
-
-                        <h2>Development Team</h2>
-                        <p>Cygnite Framework created by <a href="https://github.com/sanjoy87">Sanjoy Dey </a>, who is the lead developer of the framework.
-                        </p>
-
-
+                        <p> That's all about the controllers.  </p>
                     </article>
             <div class="clearfix"></div>
         </div>
@@ -135,7 +147,7 @@
         </div>
 
         <style type="text/css">
- .code { background: #e9e4e5;}
+.code { background: #e9e4e5;}
  .heading{padding:0.3em 0;overflow:hidden;}
  .heading h2{float:left;color:#fff;text-transform:uppercase;font-weight:300;font-size:1.4em;line-height:1.4em;text-shadow:1px 1px 4px #e21400;}
 .heading .sponsor{float:right;color:#fff;margin-top:6px;}

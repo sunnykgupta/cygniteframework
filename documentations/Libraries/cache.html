@@ -36,9 +36,6 @@
                                             <li><a href="/docs/configuration">Models</a></li>
                                             <li><a href="/docs/lifecycle">Views</a></li>
                                             <li><a href="/docs/routing">Routing</a></li>
-                                            <li><a href="/docs/requests">Libraries</a></li>
-                                            <li><a href="/docs/responses">Helpers</a></li>
-                                            <li><a href="/docs/routing">Autoloader</a></li>
                                             <li><a href="/docs/routing">Namespaces</a></li>
                                             </ul></li>
 
@@ -76,68 +73,129 @@
 
 
             <article class="section-body">
-                <h1> Controllers</h1>
+                <h1>Cache</h1>
 
 
-                        <p><a name="controllers-of-cygnite-framework"></a></p>
+                        <p>
+                                Cygnite Framework allows you to cache your page in three popular ways-</p>
+                            <a name="cache-helper-of-cygnite-framework"></a>
+                            <ul>
+                                <li>i. File Cache </li>
+                                <li>ii. APC Cache </li>
+                                <li>iii. Memcache  </li>
+                            </ul>
 
-                        <h2>How to set default Controllers ?</h2>
-                        <p> You can set your default controller of your application simply changing configuration in apps/configs/config.php file. For example-
-<pre class="code">
-     return array(
-               'default_controller'    => 'home',
-               'default_method'          => 'index',
-    );
-</pre>
-                     You can also change the default action of your controller in above configuration.
-
+                        <h2>Configurations</h2>
+                        <p>
+                                You must configure in apps/configs/config.php in order to use cygnite file cache system.
                         </p>
 
-                        <h2>Controller </h2>
-                        <p> Controllers are resides in apps/controllers/ directory.
-                                <ol>
-                                    <li> All controllers must have nameapces included in the top of the page. </li>
-                                    <li> Controllers should extends CF_BaseController.</li>
-                                    <li>Controllers should have constructor and it should call parent constructor.</li>
-                                      <li>Controllers all methods should have prefixed with action_method_name.</li>
-                                      <li>You can import classes by use keyword under namespaces.</li>
-                                </ol>
-                                For example let us create a simple controller to render view and see how it is works-
+                        <ul>
+                                <li>i. Enable cache in your config file by TRUE/ FALSE</li>
+                                <li>ii. Give your cache name which name cache should generate. Default value is cf_cache. </li>
+                                <li>iii. You can also change your cache file extensions by config.</li>
+                                <li>iv. Provide cache type equal to filecache to generate your file cache.</li>
+                                <li>v. Your cache files are stored into your apps/temp/cache/ folder. You can optionality change your path in config.</li>
+                        </ul>
+
+                        <h2>How to cache your page ?</h2>
+                        <p>Caching page is very simple via your controller-
+                            For example-</p>
 <pre class="code">
- namespace Apps\Controllers;
 
-    use Cygnite;
-    use Cygnite\Cygnite as Cf;
-    use Cygnite\Loader\CF_BaseController as CF_BaseController;
-    use Cygnite\Helpers\GHelper as GHelper;
-
-    class Home extends CF_BaseController
-    {
-        public function __construct()
-        {
-             parent::__construct();
-        }
-
-        public function action_index()
-        {
-          $this->render('welcome',array( 'title'=> "Welcome to Cygnite Framework"));
-        }
-    }
+   Cygnite::loader()->filecache->write_cache('welcomepage', $this->render("welcome",TRUE));
 </pre>
-                               You must create your view page inside apps/views/welcome.view.php page to render it.</p>
-                        <p>We are done ! Now lets call index action via browser url to view output. For example-  </p>
+                        In above example the render method will return your view page as string which used to store in cache.
+
+
+                             <h2>How to retrieve your cached page ?</h2>
+                        <p>
+                                Your cached page are stored into the file as json format which can be retrieve via your cache key. You can pass third parameter expire time to destroy
+                                your cached page.
+                        </p>
 <pre class="code">
-http://www.example.com/cygnite/index.php/home/index
+     echo Cygnite::loader()->filecache->read_cache('welcomepage');
 </pre>
 
-                        <h2>How to import Libraries ?</h2>
-                        <p>Cygnite Framework makes your work very simple enjoyable. For more details you can visit <a href="">libraries guide</a>.
-                        </p>
-                          <h2>How to import Helpers ?</h2>
-                        <p> You can also import helpers  into any file using namespaces. For more details you can visit <a href="">helpers guide</a>.
-                        </p>
+                         <h1>APC Caching</h1>
 
-                        <p> That's all about the controllers.  </p>
+                         <h2>Store into APC </h2>
+                        <p>
+                                You can store your data or page into APC cache to boost up your application performance.
+                               For example-
+                        </p>
+<pre class="code">
+   use Cygnite\Cygnite;
+
+    Cygnite::loader()->apc->store($key,$value);
+</pre>
+                                       <h2>Set lifetime of APC cache </h2>
+                        <p>
+                                You can set your cache life time by -
+                        </p>
+<pre class="code">
+   use Cygnite\Cygnite;
+
+    Cygnite::loader()->apc->set_life_time('Your time in sec');
+</pre>
+                     If you don't set life time Cygnite will use default life time as 600s.
+
+    <h2>Retrieve your data from APC </h2>
+                        <p>
+                               Fetch data from APC -
+                        </p>
+<pre class="code">
+   use Cygnite\Cygnite;
+
+    Cygnite::loader()->apc->fetch('Your cache key');
+</pre>
+
+            <h2>Manually destroy your data from APC </h2>
+            <p>
+                  You can also destroy the data from APC by the key-
+            </p>
+<pre class="code">
+   use Cygnite\Cygnite;
+
+    Cygnite::loader()->apc->destroy('Your-cache-key');
+</pre>
+            <h1>Memcache</h1>
+            You need have memcache configured to use this library.
+
+                 <h2>Add your server</h2>
+               <p>Call add server method to initialise the server. By default cygnite connects with localhost and  port number 11211.  </p>
+<pre class="code">
+   use Cygnite\Cygnite;
+
+    Cygnite::loader()->cfmemcache->add_server($host,$port);
+</pre>
+
+            <h2>Store data into memcache</h2>
+            <p>
+                  Store your data into memcache by key-
+            </p>
+<pre class="code">
+   use Cygnite\Cygnite;
+
+    Cygnite::loader()->cfmemcache->store($key,$value);
+</pre>
+
+             <h2>Fetch data from memcache</h2>
+<pre class="code">
+   use Cygnite\Cygnite;
+
+    Cygnite::loader()->cfmemcache->fetch($key);
+</pre>
+
+              <h2>Destroy your data from memcache</h2>
+<pre class="code">
+   use Cygnite\Cygnite;
+
+    Cygnite::loader()->cfmemcache->destroy($key);
+</pre>
+              That's all about the caching system. We are constantly upgrading core files to build it better.
+
+
                     </article>
             <div class="clearfix"></div>
         </div>
@@ -151,8 +209,7 @@ http://www.example.com/cygnite/index.php/home/index
 .code { background: #e9e4e5;}
  .heading{padding:0.3em 0;overflow:hidden;}
  .heading h2{float:left;color:#fff;text-transform:uppercase;font-weight:300;font-size:1.4em;line-height:1.4em;text-shadow:1px 1px 4px #e21400;}
-.heading .sponsor{float:right;color:#fff;margin-top:6px;}
-.heading .sponsor img{margin-left:1em;}
+
 .section-list-content{background-color:#f5f5f5;padding:2em 0;}
 .section-list-content .section-body{width:600px;background-color:#fff;min-height:600px; float: left;
     margin-left: 10px;}

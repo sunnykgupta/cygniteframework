@@ -83,8 +83,9 @@ use Cygnite\Loader\CF_BaseController;
 
         public function action_testing($id)
         {
+                echo \Cygnite\Helpers\Url::segment(2);
                 echo "This is testing $id ";
-               $users = Cf::loader()->users->get();
+               $users = Cygnite::loader()->users->get();
               var_dump($users);exit;
         }
 

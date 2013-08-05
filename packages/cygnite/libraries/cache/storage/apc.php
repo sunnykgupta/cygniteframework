@@ -1,7 +1,8 @@
 <?php
 namespace Cygnite\Libraries\Cache\Storage;
 
-use Cygnite\Helpers\Config as Config;
+use Cygnite\Cygnite;
+use Cygnite\Helpers\Config;
 
 if ( ! defined('CF_SYSTEM')) exit('External script access not allowed');
 /**
@@ -55,7 +56,7 @@ if ( ! defined('CF_SYSTEM')) exit('External script access not allowed');
                 {
                       if(extension_loaded('apc')):
                             $this->is_enable = TRUE;
-                            \Cygnite\Cygnite::loader()->logger->write(__CLASS__.' Initialized',__FILE__,'debug');
+                            Cygnite::loader()->logger->write(__CLASS__.' Initialized',__FILE__,'debug');
                       else:
                             throw new Exception("Apc extension not loaded properly !") ;
                       endif;
@@ -91,21 +92,24 @@ if ( ! defined('CF_SYSTEM')) exit('External script access not allowed');
                 */
                 public function __call($name, $args)
                 {
+                    if($name !== 'store' )
+                         throw new \Exception ("Empty key passed ".__FUNCTION__);
+
                    return call_user_func_array(array($this,'save'), $args);
                 }
                 /**
-                * Store the value in theapc memory
+                * Store the value in the apc memory
                 *
                 * @param string $key
                 * @param mix $value
                 * @return bool
                 */
-                protected function save($key,$value)
+                private function save($key,$value)
                 {
                     if(is_null($key) || $key == "")
-                        throw new Exception ("Empty key passed ".__FUNCTION__);
+                        throw new \Exception ("Empty key passed ".__FUNCTION__);
                     if(is_null($value) || $value == "")
-                        throw new Exception ("Empty value passed ".__FUNCTION__);
+                        throw new \Exception ("Empty value passed ".__FUNCTION__);
 
                     return (apc_store($key,$value , $this->get_life_time())) ? TRUE : FALSE;
                 }
@@ -115,7 +119,7 @@ if ( ! defined('CF_SYSTEM')) exit('External script access not allowed');
                 * @param string $key
                 * @return bool
                 */
-                public function get_data($key)
+                public function fetch($key)
                 {
                     $result = apc_fetch($key, $this->option);
                     return ($this->option) ? $result : NULL;
@@ -129,7 +133,7 @@ if ( ! defined('CF_SYSTEM')) exit('External script access not allowed');
                 public function destroy($key)
                 {
                     if(is_null($key) || $key == "")
-                        throw new Exception ("Empty key passed ".__FUNCTION__);
+                        throw new \Exception ("Empty key passed ".__FUNCTION__);
 
                         apc_fetch($key, $this->option);
                     return ($this->option) ? apc_delete($key) : TRUE;

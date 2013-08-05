@@ -1,7 +1,8 @@
 <?php
 namespace Cygnite\Libraries\Cache\Storage;
 
-use Cygnite\Helpers\Config as Config;
+use Cygnite\Cygnite;
+use Cygnite\Helpers\Config;
 
 if ( ! defined('CF_SYSTEM')) exit('External script access not allowed');
 
@@ -50,8 +51,8 @@ if ( ! defined('CF_SYSTEM')) exit('External script access not allowed');
             public function __construct()
             {
                     if (!class_exists('Memcache'))
-                        throw new Exception("Memcache extension not available !");
-                    \Cygnite\Cygnite::loader()->logger->write(__CLASS__.' Initialized',__FILE__,'debug');
+                        throw new \Exception("Memcache extension not available !");
+                    Cygnite::loader()->logger->write(__CLASS__.' Initialized',__FILE__,'debug');
             }
              /**
             * Connect memcache based on its host and port. Connect with default port if hostname and port number not passed
@@ -94,7 +95,7 @@ if ( ! defined('CF_SYSTEM')) exit('External script access not allowed');
              */
             public function __call($name, $args)
             {
-                   return call_user_func_array(array($this,'set_data'), $args);
+                   return call_user_func_array(array($this,'save'), $args);
             }
 
             /**
@@ -106,12 +107,12 @@ if ( ! defined('CF_SYSTEM')) exit('External script access not allowed');
             * @param int $excfre (seconds before item excfres)
             * @return bool
             */
-            protected function set_data($key, $value, $compress=0, $expire_time=600)
+            protected function save($key, $value, $compress=0, $expire_time=600)
             {
                      if(is_null($key) || $key == "")
-                         throw new Exception ("Empty key passed ".__FUNCTION__);
+                         throw new \Exception ("Empty key passed ".__FUNCTION__);
                      if(is_null($value) || $value == "")
-                         throw new Exception ("Empty key passed ".__FUNCTION__);
+                         throw new \Exception ("Empty key passed ".__FUNCTION__);
 
                     //Used MEMCACHE_COMPRESSED to store the item compressed (uses zlib).  $this->life_time
                     return $this->memobj->set($key, $value, $compress ? MEMCACHE_COMPRESSED:NULL,$expire_time);
@@ -122,7 +123,7 @@ if ( ! defined('CF_SYSTEM')) exit('External script access not allowed');
             * @param string $key
             * @return bool
             */
-            public function get_data($key)
+            public function fetch($key)
             {
                     $data = array();
                     $data = $this->memobj->get($key);
@@ -137,7 +138,7 @@ if ( ! defined('CF_SYSTEM')) exit('External script access not allowed');
             public function destroy($key)
             {
                      if(is_null($key) || $key == "")
-                        throw new Exception ("Empty key passed ".__FUNCTION__);
+                        throw new \Exception ("Empty key passed ".__FUNCTION__);
 
                      return $this->memobj->delete($key);
             }

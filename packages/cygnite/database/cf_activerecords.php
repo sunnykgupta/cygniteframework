@@ -1,7 +1,7 @@
 <?php
 namespace Cygnite\Database;
 
-use Cygnite\Cygnite as Cygnite;
+use Cygnite\Cygnite;
 
 class CF_ActiveRecords extends DBConnector //implements CF_IActiveRecords
 {
@@ -31,7 +31,7 @@ class CF_ActiveRecords extends DBConnector //implements CF_IActiveRecords
 
     public function __construct($connkey)
     {
-        \Cygnite\Cygnite::loader()->logger->write(__CLASS__.' Initialized',__FILE__,'debug');
+        Cygnite::loader()->logger->write(__CLASS__.' Initialized',__FILE__,'debug');
         $this->connect();
         $this->connection = $connkey;
         $this->pdo[$this->connection] = $this->getInstance($this->connection);

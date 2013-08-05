@@ -1,7 +1,7 @@
 <?php
 namespace Cygnite\Libraries;
 
-use Cygnite\Helpers\Config as Config;
+use Cygnite\Helpers\Config;
 
 
 if ( ! defined('CF_SYSTEM')) exit('No External script access allowed');

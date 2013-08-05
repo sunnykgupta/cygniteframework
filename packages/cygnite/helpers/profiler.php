@@ -1,5 +1,6 @@
 <?php
 namespace Cygnite\Helpers;
+
 if ( ! defined('CF_SYSTEM')) exit('External script access not allowed');
 /*
  *  Cygnite Framework

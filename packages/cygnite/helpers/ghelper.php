@@ -1,7 +1,7 @@
 <?php
 namespace Cygnite\Helpers;
 
-use Cygnite\Cygnite as Cyg;
+use Cygnite\Cygnite;
 
 if ( ! defined('CF_SYSTEM')) exit('External script access not allowed');
 /**
@@ -46,7 +46,7 @@ class GHelper
 
         public static function  showErrors($err_type,$err_header,$err_message,$err_file,$line_num = NULL,$debug = FALSE)
         {
-                 Cyg::loader()->errorhandler->handleExceptions($err_type, $err_header,$err_message, $err_file, $line_num,$debug);
+                 Cygnite::loader()->errorhandler->handleExceptions($err_type, $err_header,$err_message, $err_file, $line_num,$debug);
         }
 
          public static function  log_error($messege,$error_code ="",$line_num = "")
@@ -89,7 +89,7 @@ class GHelper
               echo "<pre>";
                   print_r($resultArray);
              echo "</pre>";
-            if($hasexit === 'exit')
+            if($hasexit == 'exit')
                  exit;
         }
     }

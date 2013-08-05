@@ -1,4 +1,7 @@
-<?php if ( ! defined('CF_SYSTEM')) exit('External script access not allowed');
+<?php
+namespace Cygnite\Libraries\Cache\Storage;
+
+if ( ! defined('CF_SYSTEM')) exit('External script access not allowed');
 
 /**
  *  Cygnite Framework
@@ -28,9 +31,9 @@
     abstract class IMemoryStorage
     {
         /* Abstract store method of caching*/
-         abstract protected function set_data($key,$value);
+         abstract protected function save($key,$value);
          /* Abstract the cache retriving function */
-         abstract public function get_data($key);
+         abstract public function fetch($key);
         /* Abstract the cache destroy function */
          abstract public function destroy($key);
     }

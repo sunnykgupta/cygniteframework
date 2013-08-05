@@ -73,59 +73,62 @@
 
 
             <article class="section-body">
-                <h1> Assets Helper</h1>
+                <h1> Url Helper</h1>
 
-                        <p><a name="assets-of-cygnite-framework"></a></p>
+                        <p><a name="url-of-cygnite-framework"></a></p>
 
-                        <h2>How to add script ? </h2>
+                        <h2>How to get Url Segment ? </h2>
                         <p>
-                                You can add script to the page using assets helper. For example-
+                                You can get your url segments as below-
                         </p>
 <pre class="code">
-    use Cygnite\Helpers\Assets;
-    echo Assets::addscript('webroot/js/cygnite/jquery.js');
-</pre>
 
-                        <h2>How to add stylesheet ? </h2>
+    http://www.cygniteframework.com/projects/index.php/users/list/23
+    http://www.cygniteframework.com/projects/users/list/23
+
+    use Cygnite\Helpers\Url;
+    echo Url::segment(2);
+</pre>
+             Cygnite Framework always counts from your index.php if available in url else it counts from your root path. The above url segment will print "list" as result.
+
+                        <h2>How to get base path of application ?  </h2>
                         <p>
-                                You can add styles to the page using assets helper. For example-
+                                The method basepath returns your base path of your applications. For example-
                         </p>
 <pre class="code">
-    use Cygnite\Helpers\Assets;
-    echo Assets::addstyle('webroot/css/cygnite/style.css');
+    use Cygnite\Helpers\Url;
+    echo Url::basepath();
 </pre>
+                        It returns <i>http://www.cygniteframework.com/projects/</i> as result.
 
-                             <h2>How to add link ? </h2>
+                             <h2> How to redirect page ?</h2>
                         <p>
-                                You can add link with its attributes to the page as below.
+                                You can redirect from your page to another -
                         </p>
 <pre class="code">
-    use Cygnite\Helpers\Assets;
-   echo Assets::addlink('user/list', 'users',array('title'=>'users details'));
+   use Cygnite\Helpers\Url;
+   Url::redirect_to('Your Url to redirect');
 </pre>
 
-                             <h2>HTML Entities </h2>
-
+                             <h2>How to refresh/reload the Page ?</h2>
+                             You can also reload your page as below-
 <pre class="code">
-   echo \Cygnite\Helpers\HTML::entities($your-string);
+   use Cygnite\Helpers\Url;
+   Url::redirect_to('users/names','Refresh');
 </pre>
 
-                                     <h2>HTML Entities Decode</h2>
-
+                                <h2>How to encode the url ?</h2>
+                             You can use encode method to encode your url-
 <pre class="code">
-   echo \Cygnite\Helpers\HTML::decode($your-string);
+   use Cygnite\Helpers\Url;
+   Url::encode('your-url-to-encode');
 </pre>
 
-                                          <h2>HTML Special Characters</h2>
-
+                                <h2>How to decode the url ?</h2>
+                             You can use decode method to decode your encoded url-
 <pre class="code">
-   echo \Cygnite\Helpers\HTML::special_characters($your-string);
-</pre>
-
-                                               <h2>HTML Santize</h2>
-
-<pre class="code">
-   echo \Cygnite\Helpers\HTML::santize($your-string);
+   use Cygnite\Helpers\Url;
+   Url::decode('your-url-to-decode');
 </pre>
 
 
