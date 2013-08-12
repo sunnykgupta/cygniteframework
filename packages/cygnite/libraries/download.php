@@ -1,7 +1,7 @@
 <?php
 namespace Cygnite\Libraries;
 
-use Cygnite\Helpers\GHelper as GHelper;
+use Cygnite\Helpers\GHelper;
 
 if ( ! defined('CF_SYSTEM')) exit('External script access not allowed');
 /**
@@ -20,7 +20,7 @@ if ( ! defined('CF_SYSTEM')) exit('External script access not allowed');
  *
  * @Package                         :  Packages
  * @Sub Packages               :  Library
- * @Filename                       : CF_Downloader
+ * @Filename                       :  Download
  * @Description                   : This library used to download user requested file via path.
  * @Author                           : Cygnite dev team
  * @Copyright                     :  Copyright (c) 2013 - 2014,
@@ -32,7 +32,7 @@ if ( ! defined('CF_SYSTEM')) exit('External script access not allowed');
  *
  */
 
-class Downloader
+class Download
 {
 
     private $mime_type = NULL;
@@ -245,7 +245,7 @@ class Downloader
        return TRUE;
     }
 
-    public function download($file_path)
+    public function file($file_path)
     {
          $urlParts = parse_url($file_path);
         $file_path =  CYGNITE_BASE.DS.str_replace('/',DS, str_replace('/'.ROOTDIR.'/','', $urlParts['path']));

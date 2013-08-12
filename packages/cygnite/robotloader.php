@@ -83,6 +83,7 @@ if ( ! defined('CF_SYSTEM')) exit('External script access not allowed');
                                         'CFMemcache'  =>  '\\Cygnite\\Libraries\\Cache\\Storage\\CFMemcache',
                                         'Pdf'  =>  '\\Cygnite\\Libraries\\Pdf',
                                         'Parser'  =>  '\\Cygnite\\Libraries\\Parser',
+                                        'Download'  =>  '\\Cygnite\\Libraries\\Download',
                                         'IRegistry'  =>  '\\Cygnite\\Loader\\IRegistry',
                                         'Appregistry'  =>  '\\Cygnite\\Loader\\Appregistry', //name changed
                                         'CF_BaseController'  =>  '\\Cygnite\\Loader\\CF_BaseController', //name changed
