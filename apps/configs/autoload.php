@@ -11,7 +11,7 @@ if ( ! defined('CF_SYSTEM')) exit('External script access not allowed');
  *
  *   This source file is subject to the MIT license that is bundled
  *   with this package in the file LICENSE.txt.
- *   http://www.appsntech.com/license.txt
+ *   http://www.cygniteframework.com/license.txt
  *   If you did not receive a copy of the license and are unable to
  *   obtain it through the world-wide-web, please send an email
  *   to sanjoy@hotmail.com so I can send you a copy immediately.
@@ -22,7 +22,7 @@ if ( ! defined('CF_SYSTEM')) exit('External script access not allowed');
  *@description                    : This file is used to specify which files should be register on cygnite engine by default.
  *@author                           : Sanjoy Dey
  *@copyright                      :  Copyright (c) 2013 - 2014,
- *@link	                  :  http://www.appsntech.com
+ *@link	                  :  http://www.cygniteframework.com
  *@since	                 :  Version 1.0
  *@filesource
  *@warning                      :  If you don't protect this directory from direct web access, anybody will be able to see your configuaration and settings.

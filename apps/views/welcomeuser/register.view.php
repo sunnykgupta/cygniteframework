@@ -1,9 +1,11 @@
 <?php
-use Cygnite\Helpers\Url as Url;
-\Cygnite\Cygnite::import('packages.cygnite.libraries.form');
+namespace Apps\Views;
+use Cygnite\Helpers\Url;
+use Cygnite\Libraries\CForm;
 
-$form = \Cygnite\Libraries\CForm::initialize("registration_form");
-echo \Cygnite\Libraries\CForm::open(array(
+$form = CForm::initialize("registration_form");
+//\Cygnite\show($form);
+echo CForm::open(array(
                                'method' => 'post',
                                'action' => Url::sitepath('welcomeuser/registration'),
                                'id' => '',
@@ -82,5 +84,5 @@ echo \Cygnite\Libraries\CForm::open(array(
                 echo $form->input("txtReset",array("type"=>"button"))->value('Reset')->class("button",'white');
     ?>
   </div>
-<?php   echo \Cygnite\Libraries\CForm::close(); ?>
+<?php   echo CForm::close(); ?>
 <script type="text/javascript" src="<?php echo Url::basepath(); ?>webroot/js/cygnite/jquery.js"></script>

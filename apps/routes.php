@@ -10,7 +10,7 @@ if ( ! defined('CF_SYSTEM')) exit('No External script access allowed');
  *
  *   This source file is subject to the MIT license that is bundled
  *   with this package in the file LICENSE.txt.
- *   http://www.appsntech.com/license.txt
+ *   http://www.cygniteframework.com/license.txt
  *   If you did not receive a copy of the license and are unable to
  *   obtain it through the world-wide-web, please send an email
  *   to sanjoy@hotmail.com so I can send you a copy immediately.
@@ -21,7 +21,7 @@ if ( ! defined('CF_SYSTEM')) exit('No External script access allowed');
  * @Description                    : This file is used to set all routing configurations
  * @Author                           : Cygnite dev team
  * @Copyright                     :  Copyright (c) 2013 - 2014,
- * @Link	                   :  http://www.appsntech.com
+ * @Link	                   :  http://www.cygniteframework.com
  * @Since	                  :  Version 1.0
  * @Filesource
  * @warning                     :  Any changes in this library can cause abnormal behaviour of the framework

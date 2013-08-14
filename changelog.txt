@@ -1,0 +1,9 @@
+Project Name	Version	Issue	Date	Solved By
+Cygnite Framewpork	1.1	Namespaces implemented 	31-08-2013	Sanjoy Dey
+Cygnite Framewpork	1.1	Session Library issue fixed	01-09-2013	Sanjoy Dey
+Cygnite Framewpork	1.1	Router issue fixed.	02-09-2013	Sanjoy Dey
+Cygnite Framewpork	1.1	Url Segment functionality has been added 	03-09-2013	Sanjoy Dey
+Cygnite Framewpork	1.1	Dynamic autoload for models and Libraries	04-09-2013	Sanjoy Dey
+Cygnite Framewpork	1.1	Removed unwanted code from core.	05-09-2013	Sanjoy Dey
+Cygnite Framewpork	1.1	File  Cache issue has been resolved and factory patterns removed to autoload.	06-09-2013	Sanjoy Dey
+Cygnite Framewpork	1.1	Logger library issue has been fixed.	07-09-2013	Sanjoy Dey

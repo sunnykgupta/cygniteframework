@@ -1,10 +1,10 @@
 <?php
 namespace Cygnite;
 
-use Cygnite\Helpers\GHelper as GHelper;
-use Cygnite\Helpers\Url as Url;
-use Cygnite\Helpers\Config as Config;
-use Cygnite\Helpers\Profiler as Profiler;
+use Cygnite\Helpers\GHelper;
+use Cygnite\Helpers\Url;
+use Cygnite\Helpers\Config;
+use Cygnite\Helpers\Profiler;
 
 if ( ! defined('CF_SYSTEM')) exit('External script access not allowed');
 /**
@@ -91,6 +91,15 @@ if ( ! defined('CF_SYSTEM')) exit('External script access not allowed');
     $router ="";
     //Give user provision to configure and set dynamic routes
     Cygnite::import('apps.routes');
+
+     function  show($resultArray = array(),$hasexit ="")
+    {
+          echo "<pre>";
+              print_r($resultArray);
+         echo "</pre>";
+        if($hasexit == 'exit')
+             exit;
+    }
 
     /*-------------------------------------------------------
      * Booting completed. Lets handle user request!!

@@ -83,13 +83,3 @@ class GHelper
         }
 
 }
-    if(!function_exists('show')) {
-         function  show($resultArray = array(),$hasexit ="")
-        {
-              echo "<pre>";
-                  print_r($resultArray);
-             echo "</pre>";
-            if($hasexit == 'exit')
-                 exit;
-        }
-    }

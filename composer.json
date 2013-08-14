@@ -1,6 +1,6 @@
 {
     "name": "Cygnite/package_name",
-    "description": "Cygnite PHP Framework for Web Artists",
+    "description": "Cygnite PHP Framework",
     "minimum-stability": "alpha",
     "authors": [
         {
