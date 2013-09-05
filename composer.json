@@ -1,7 +1,14 @@
 {
-    "name": "Cygnite/package_name",
+    "name": "sanjoy87/cygniteframework",
     "description": "Cygnite PHP Framework",
     "minimum-stability": "alpha",
+    "description": "The Cygnite PHP Framework.",
+	"keywords": ["framework", "Cygnite"],
+	"license": "MIT",
+    "require": {
+        "php": ">=5.3.0",
+        "another-vendor/package": "1.*"
+    },
     "authors": [
         {
             "name": "Sanjoy Dey",
